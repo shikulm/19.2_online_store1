@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Bootstrap Example</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+
+
+  </head>
+  <body class="p-3 m-0 border-0 bd-example m-0 border-0>
+
+        <div class="container">
+            <div class = "row mt-5">
+                <div class = "col-2">
+                    <div class="card bg-black text-white h-100 d-inline-block">
+                          <h5 class="card-header fa fa-bars"> Меню </h5>
+                        <div class="card-body bg-black h-100 style="width: 18rem;"">
+                            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link fa fa-home float-start text-white bg-dark" id="v-pills-home-tab" data-toggle="pill" href="/" role="tab" aria-controls="v-pills-home" aria-selected="true">Главная</a>
+                                <button class="nav-link text-white" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                    <h5 class="fa fa-star float-start"> Категории </h5>
+                                </button>
+                                <button class="nav-link text-white" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                    <h5 class="fa fa-shopping-cart float-start"> Заказы </h5>
+                                </button>
+                                <a class="nav-link active fa fa-home float-start text-white bg-blue" id="v-pills-home-tab" data-toggle="pill" href="/contacts/" role="tab" aria-controls="v-pills-home" aria-selected="true">Контакты</a>
+                            </div>
+                        </div>
+
+                        <div class="card-footer text-muted bg-black " >
+                            <div class="dropdown dropup">
+                              <a class="btn btn-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <h5 class="fa fa-user-circle" aria-hidden="true"> Пользователь </h5>
+                              </a>
+
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Профиль</a></li>
+                                <li><a class="dropdown-item" href="#">Выход</a></li>
+                              </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class = "col-10">
+                    <h1 class="text-center"  mt-5>Контакты</h1>
+                    <div class = "row mt-3">
+                        <div class = "col-6">
+                            <form method="post">
+                              {% csrf_token %}
+                              <div class="mb-3">
+                                <label for="InputName1" class="form-label">Имя</label>
+                                <input name="name" type="text" class="form-control" id="InputName1" placeholder="Имя">
+                              </div>
+                                <label for="InputEmail1" class="form-label">Почта</label>
+                                <div class="input-group has-validation">
+                                  <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                  <input name="email" type="email" class="form-control" id="InputEmail1" aria-describedby="inputGroupPrepend" placeholder="email" required>
+                                  <div class="invalid-feedback">
+                                    Пожалуйста, введите email.
+                                  </div>
+                                </div>
+<!--                              <div class="mb-3">-->
+<!--                                <label for="InputEmail1" class="form-label">Email address</label>-->
+<!--                                <input type="email" class="form-control" id="InputEmail1" placeholder="email">-->
+<!--                              </div>-->
+                              <div class="mb-3">
+                                <label for="InputMessage1" class="form-label">Сообщение</label>
+                                <textarea name="message" class="form-control" id="InputMessage1" rows="3" placeholder="Сообщение"></textarea>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Отправить</button>
+                            </form>
+                        </div>
+                        <div  class = "col-6">
+                            <div class="card text-start w-75 mt-4">
+                                <h6 class="card-title"> Наши контакты </h6>
+
+                                <div class="card-body bg-white style="width: 10rem;text-start"">
+<!--                                    <p class="fw-bold">$ 100 </p>-->
+                                    <p class="fst-normal">
+<!--                                        Здесь должно быть много текста с описанием контактных данных компании. <br> Например, номер телефона, элетронная почта, адрес, информация о том, как и где найти компанию, данные о контактном лице-->
+                                        Номер телефона: +7 (962) 756-05-37 <br>
+                                        email: shokolad@mai.ru <br>
+                                        Адрес: г. Астрахань, ул. Н. Островоского, д. 56. <br>
+                                        Отсановка Волжская<br>
+                                        Время работы: пн-птн, с 9:00 до 18:00 <br>
+                                    </p>
+<!--                                    <button type="button" class="btn btn-outline-primary">Купить</button>-->
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+  </body>
+</html>
+

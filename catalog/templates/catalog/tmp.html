@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<div class="container"><div class="row"><div class="col-xs-12">
+<a data-toggle="modal" href="https://qna.habr.com/q/50322" data-target="#modalhref" class="btn btn-default btn-block">Первый пример</a>
+<a data-toggle="modal" href="https://travel.yandex.ru/avia/" data-target="#modalhref" class="btn btn-default btn-block">Второй пример</a>
+<a data-toggle="modal" href="/snippets/modal/2017/href/modal-demo-3.html" data-target="#modalhref" class="btn btn-default btn-block">Третий пример</a>
+</div></div></div>
+
+<div class="modal fade" id="modalhref" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+ <div class="modal-content">
+<!-- Содержимое страницы -->
+ </div>
+ </div>
+</div>
+
+<script>
+$("a[data-toggle='modal']").on('click', function () {
+ $('#modalhref').removeData('bs.modal');
+});
+</script>
