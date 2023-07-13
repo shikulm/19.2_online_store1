@@ -1,0 +1,133 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+      "name_category": "Темный шоколад",
+      "description": "Подойдет для любителей традиционного шоколада"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 6,
+    "fields": {
+      "name_category": "Белый и цветной шоколад",
+      "description": "Шоколад красивого белого цвета"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 7,
+    "fields": {
+      "name_category": "Фруктовый шоколад",
+      "description": "Шоколад с невероятными фруктовыми ингредиентами"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 8,
+    "fields": {
+      "name_category": "Шоколадные конфеты",
+      "description": null
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 9,
+    "fields": {
+      "name_category": "Прочие товары",
+      "description": "Все аксессуыры, которые вы можете приобрести в дополнение к конфетам"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "name_product": "Белый шоколад",
+      "description": "Невероятно белого цвета",
+      "image_product": "",
+      "category": 6,
+      "price_buy": 565.0,
+      "created_at": "2023-07-13T22:51:23Z",
+      "changed_at": "2023-07-13T22:51:23Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "name_product": "Зеленый шоколад с миндальными орешками",
+      "description": "Выглядит очень оригинально. По вкусу тоже необычный",
+      "image_product": "",
+      "category": 6,
+      "price_buy": 655.0,
+      "created_at": "2023-07-13T22:54:49Z",
+      "changed_at": "2023-07-13T22:54:49Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "name_product": "Темный шоколад на сиропе топинамбура",
+      "description": "Специально для любителей диеты",
+      "image_product": "",
+      "category": 5,
+      "price_buy": 1000.0,
+      "created_at": "2023-07-13T22:56:39Z",
+      "changed_at": "2023-07-13T22:56:39Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "name_product": "Темный шоколад на кокосовом сахаре",
+      "description": "Очень вкусно",
+      "image_product": "",
+      "category": 5,
+      "price_buy": 843.0,
+      "created_at": "2023-07-13T22:57:32Z",
+      "changed_at": "2023-07-13T22:57:32Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "name_product": "Клубничный шоколад",
+      "description": "Из клубники",
+      "image_product": "",
+      "category": 7,
+      "price_buy": 888.0,
+      "created_at": "2023-07-13T22:58:30Z",
+      "changed_at": "2023-07-13T22:58:30Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+      "name_product": "Малиновый",
+      "description": "С малиновыми добавками",
+      "image_product": "",
+      "category": 7,
+      "price_buy": 700.0,
+      "created_at": "2023-07-13T22:59:10Z",
+      "changed_at": "2023-07-13T22:59:10Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 7,
+    "fields": {
+      "name_product": "Гречишный шоколад",
+      "description": "Светлый шоколад на основе гречишного чая",
+      "image_product": "",
+      "category": 7,
+      "price_buy": 655.0,
+      "created_at": "2023-07-13T22:59:33Z",
+      "changed_at": "2023-07-13T22:59:33Z"
+    }
+  }
+]
