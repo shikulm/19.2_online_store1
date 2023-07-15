@@ -23,7 +23,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    name_product = models.CharField(max_length= 150, verbose_name='наименование')
+    name_product = models.CharField(max_length=150, verbose_name='наименование')
     description = models.TextField(verbose_name='описание', **NULLABLE)
     image_product = models.ImageField(upload_to='products/', verbose_name= 'изображение (превью)', **NULLABLE)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='категория')
@@ -40,3 +40,16 @@ class Product(models.Model):
         ordering = ('name_product',)
 
 
+class Contacts(models.Model):
+    name = models.CharField(max_length=100, verbose_name="имя")
+    email = models.EmailField(max_length=254, verbose_name="email")
+    message = models.TextField(verbose_name="сообщение", **NULLABLE)
+
+    def __str__(self):
+        return f"{self.name} ({self.email})"
+
+
+    class Meta:
+        verbose_name = "контакт"
+        verbose_name_plural = "контакты"
+        ordering = ('name',)
