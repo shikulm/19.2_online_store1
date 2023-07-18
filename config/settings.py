@@ -11,6 +11,19 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from django.core.exceptions import ImproperlyConfigured
+from dotenv.main import load_dotenv
+
+load_dotenv()
+
+def get_env_value(env_var):
+    try:
+
+        return os.environ[env_var]
+    except:
+        error_msg = f"Set he {env_var} variable in .env file"
+        raise ImproperlyConfigured(error_msg)
+        # raise ValueError(error_msg)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +33,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c4e=%#3ijw=q_*la4_2pvj-hmb9lajw!)4o*wn+@9fg_d4m-13'
+# SECRET_KEY = 'django-insecure-c4e=%#3ijw=q_*la4_2pvj-hmb9lajw!)4o*wn+@9fg_d4m-13'
+SECRET_KEY = get_env_value('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,12 +89,23 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'online_store',
+#         'USER': 'postgres',
+#         'PASSWORD': '12345',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'online_store',
-        'USER': 'postgres',
-        'PASSWORD': '12345',
+        'USER': get_env_value('USER'),
+        'PASSWORD': get_env_value('PASSWORD'),
+        'HOST': get_env_value('HOST'),
+        'PORT': get_env_value('PORT'),
     }
 }
 
