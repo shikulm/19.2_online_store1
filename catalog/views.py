@@ -1,7 +1,12 @@
 from django.shortcuts import render
 
+from catalog.models import Product
+
+
 # Create your views here.
+
 def home(request):
+    print(Product.objects.all().order_by('-pk')[:5])
     return render(request, 'catalog/home.html')
 
 
