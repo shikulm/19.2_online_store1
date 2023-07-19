@@ -20,10 +20,12 @@
 {#                        <div class="card-body flex-column h-100" style="height:80% !important">#}
     <div class="card-body flex-column h-100" style="height:13rem !important">
         <h3 class="card-title pricing-card-title">{{object.price_buy|floatformat:0}} руб.</h3>
-        <div class="row text-center match-height">
-            <h6 class="card-title pricing-card-title h-40">Категория: <br> {{object.category}}</h6>
-{#                            <p title="{{object.description}}">{{object.description|truncatechars:100}} </p>#}
-        </div>
+        {% if category == None or category == '' %}
+            <div class="row text-center match-height">
+                <h6 class="card-title pricing-card-title h-40">Категория: <br> {{object.category}}</h6>
+    {#                            <p title="{{object.description}}">{{object.description|truncatechars:100}} </p>#}
+            </div>
+        {% endif %}
         <div class="row text-center h-25">
             <p title="{{object.description}}">{{object.description|get_to_len:100}} </p>
         </div>
