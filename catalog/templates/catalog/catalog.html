@@ -1,0 +1,42 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% load static %}
+
+
+
+{% block content %}
+
+<script>
+$('.row.match-height').each(function() {
+   $(this).find('.card').not('.card .card').matchHeight(); // Not .card .card prevents collapsible cards from taking height
+});
+</script>
+
+
+{#   <script>#}
+{#      $(document).ready(function() {#}
+{#          var x = 0;#}
+{#          $(".card-deck .card-header, .card-deck .card-footer").each(function(id, it) {#}
+{#            if ($(it).height() > x) {#}
+{#              x = $(it).height();#}
+{#            }#}
+{#          }).height(x);#}
+{#        });#}
+{#  </script>#}
+
+    <div class="container-fluid">
+      <div class="row text-center match-height gy-5">
+          {% include 'catalog/includes/inc_category_menu.html' %}
+      </div>
+        <h2 text-center gy-3> {% if category %} {{ category }} {% endif %} </h2>
+
+        <div class="row text-center match-height gy-3">
+            {% for object in object_list %}
+                <div class="col-3">
+                {% include 'catalog/includes/inc_card_product.html' %}
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
