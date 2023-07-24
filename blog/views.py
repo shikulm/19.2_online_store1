@@ -8,13 +8,19 @@ from blog.models import Blog
 
 # Create your views here.
 
-class BlogListView(ListView):
+class BlogListView_published(ListView):
     model = Blog
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset()
         queryset = queryset.filter(is_published=True)
         return queryset
+
+
+class BlogListView(ListView):
+    model = Blog
+
+
 
 class BlogCreateView(CreateView):
     model = Blog
