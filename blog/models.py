@@ -13,7 +13,8 @@ class Blog(models.Model):
     image_blog = models.ImageField(upload_to='blog/', verbose_name='изображение (превью)', **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания', **NOT_NULLABLE)
     is_published = models.BooleanField(default=True, verbose_name='опубликовано', **NOT_NULLABLE)
-    views_count = models.IntegerField(default=0, verbose_name="просмотры", **NOT_NULLABLE)
+    # views_count = models.IntegerField(default=0, verbose_name="просмотры", **NOT_NULLABLE)
+    views_count = models.PositiveIntegerField(default=0, verbose_name="просмотры", **NOT_NULLABLE, editable=False)
 
     def __str__(self):
         return self.caption
