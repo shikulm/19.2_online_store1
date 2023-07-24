@@ -2,6 +2,7 @@
 
 from django.core.management import BaseCommand, call_command
 
+from blog.models import Blog
 from catalog.models import Category, Product
 
 
@@ -11,6 +12,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Удаляем все категории
         Category.objects.all().delete()
+        Blog.objects.all().delete()
 
         # Удаляем все продукты
         Product.objects.all().delete()

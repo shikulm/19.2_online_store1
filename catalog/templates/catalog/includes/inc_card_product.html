@@ -2,17 +2,8 @@
 
 <div class="card mb-4 box-shadow h-100 ">
     <div class="card-header d-flex align-items-center justify-content-center h-80">
-{#                            <h5 class="my-0 font-weight-normal">{{ object.name_product }}</h5>#}
         <h5 class="my-0 font-weight-normal text-truncate" title="{{ object.name_product }}">{{ object.name_product }}</h5>
     </div>
-{#                        <img class="card-img-top"#}
-{#                            src="/media/{{ object.image_product }}"#}
-{#                            alt="{{ object.name_product }}">#}
-
-
-{#                        <img class="card-img-top"#}
-{#                            src="{{ object.image_product|mediapath }}"#}
-{#                            alt="{{ object.name_product }}">#}
     <img class="card-img-top mx-auto d-block"
         src="{% mediapath_tag object.image_product %}"
         alt="{{ object.name_product }}"
@@ -23,7 +14,6 @@
         {% if category == None or category == '' %}
             <div class="row text-center match-height">
                 <h6 class="card-title pricing-card-title h-40">Категория: <br> {{object.category}}</h6>
-    {#                            <p title="{{object.description}}">{{object.description|truncatechars:100}} </p>#}
             </div>
         {% endif %}
         <div class="row text-center h-25">
