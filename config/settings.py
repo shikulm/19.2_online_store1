@@ -103,7 +103,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'online_store',
-        'USER': get_env_value('USER'),
+        'USER': get_env_value('PG_USER'),
+        # 'USER': get_env_value('USER'),
+        # 'USER': 'postgres',
         'PASSWORD': get_env_value('PASSWORD'),
         'HOST': get_env_value('HOST'),
         'PORT': get_env_value('PORT'),
