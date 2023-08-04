@@ -2,25 +2,42 @@
 
 <div class="card mb-4 box-shadow h-100 ">
     <div class="card-header d-flex align-items-center justify-content-center h-80">
-        <h5 class="my-0 font-weight-normal text-truncate" title="{{ object.name_product }}">{{ object.name_product }}</h5>
+        <h5 class="my-0 font-weight-normal text-truncate"
+            title="{{ object.name_product }}">{{ object.name_product }}</h5>
     </div>
     <img class="card-img-top mx-auto d-block"
-        src="{% mediapath_tag object.image_product %}"
-        alt="{{ object.name_product }}"
-        style="width: 22rem; height: 20rem;">
-{#                        <div class="card-body flex-column h-100" style="height:80% !important">#}
+         src="{% mediapath_tag object.image_product %}"
+         alt="{{ object.name_product }}"
+         style="width: 22rem; height: 20rem;">
+    {#                        <div class="card-body flex-column h-100" style="height:80% !important">#}
     <div class="card-body flex-column h-100" style="height:13rem !important">
-        <h3 class="card-title pricing-card-title">{{object.price_buy|floatformat:0}} руб.</h3>
+        <h3 class="card-title pricing-card-title">{{ object.price_buy|floatformat:0 }} руб.</h3>
         {% if category == None or category == '' %}
             <div class="row text-center match-height">
-                <h6 class="card-title pricing-card-title h-40">Категория: <br> {{object.category}}</h6>
+                <h6 class="card-title pricing-card-title h-40">Категория: <br> {{ object.category }}</h6>
             </div>
         {% endif %}
         <div class="row text-center h-25">
-            <p title="{{object.description}}">{{object.description|get_to_len:100}} </p>
+            <p title="{{ object.description }}">{{ object.description|get_to_len:100 }} </p>
         </div>
         <div class="row text-center match-height">
-            <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+            {#            <div class="col-12">#}
+            <button type="button" class="btn btn-sm btn-block btn-outline-primary mb-2">Купить</button>
+            {#            </div>#}
+            <div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Edit">
+                {#            <div class="col-4">#}
+{#                <a type="button" class="btn btn-block btn-outline-primary"#}
+{#                   href="{% url 'catalog:product_create' %}">Добавить</a>#}
+                {#            </div>#}
+                {#            <div class="col-4">#}
+                <a type="button" class="btn btn-block btn-outline-primary"
+                   href="{% url 'catalog:product_edit' object.pk %}">Изменить</a>
+                {#            </div>#}
+                {#            <div class="col-4">#}
+                <a type="button" class="btn btn-block btn-outline-primary"
+                   href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
+                {#            </div>#}
+            </div>
         </div>
     </div>
 </div>

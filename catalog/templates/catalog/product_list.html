@@ -30,6 +30,9 @@ $('.row.match-height').each(function() {
       </div>
         <h2 text-center gy-3> {% if category %} {{ category }} {% endif %} </h2>
 
+              <a type="button" class="btn btn-block btn-outline-primary col-2 mb-3"
+                   href="{% url 'catalog:product_create' %}">Добавить товар</a>
+
         <div class="row text-center match-height gy-3">
             {% for object in object_list %}
                 <div class="col-3">
