@@ -30,3 +30,9 @@ class ProductForm(forms.ModelForm):
             if word in cleaned_data.lower():
                 raise forms.ValidationError('Описание продукта содержит запрещенные слова')
         return cleaned_data
+
+    def __init__(self, *args, **kwargs):
+        """Стилизация формы"""
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
