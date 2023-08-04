@@ -9,12 +9,12 @@ NOT_NULLABLE = {'blank': False, 'null': False}
 
 
 class Version(models.Model):
-    name_version = models.CharField(max_length=150, verbose_name='Форма', **NOT_NULLABLE)
+    name_version = models.CharField(max_length=150, verbose_name='назание', **NOT_NULLABLE)
     product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='продукт', **NULLABLE)
     weight = models.PositiveIntegerField(default=100, verbose_name='вес, гр.', **NOT_NULLABLE)
     shape = models.ForeignKey('Shape', on_delete=models.CASCADE, verbose_name='форма', **NOT_NULLABLE)
     num_version = models.PositiveIntegerField(default=1, verbose_name='номер версии', **NOT_NULLABLE) # Убрать?
-    is_actual = models.BooleanField(default=True, verbose_name='актуально для продажи') # Вместо признака текущей версии
+    is_actual = models.BooleanField(default=True, verbose_name='доступно для продажи') # Вместо признака текущей версии
 
     def __str__(self):
         return f'{self.product} - {self.name_shape} ({self.weight} гр, {self.shape})'
