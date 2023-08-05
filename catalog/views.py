@@ -1,6 +1,6 @@
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from catalog.models import Product, Category, Contacts, Version
 from catalog.forms import ProductForm, VersionForm
@@ -42,6 +42,19 @@ class ProductListView(ListView):
         context_data['category'] = Category.objects.get(pk=self.kwargs.get('pk')) if self.kwargs.get('pk') else ''
 
         return context_data
+
+
+class ProductDetailView(DetailView):
+    model = Product
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        # context_data['version_list'] = Version.objects.filter(product_id=self.object.pk)
+        context_data['version_list'] = self.object.version_set.filter(is_actual=True)
+        print(context_data['version_list'])
+
+        return context_data
+
 
 class ProductCreateView(CreateView):
     model = Product

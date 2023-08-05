@@ -17,7 +17,8 @@ class Version(models.Model):
     is_actual = models.BooleanField(default=True, verbose_name='доступно для продажи') # Вместо признака текущей версии
 
     def __str__(self):
-        return f'{self.product} - {self.name_shape} ({self.weight} гр, {self.shape})'
+        # return f'{self.product} - {self.name_version} ({self.weight} гр, {self.shape})'
+        return f'{self.name_version}'
 
     class Meta:
         verbose_name = "вариант продукта"

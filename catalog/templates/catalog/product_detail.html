@@ -1,0 +1,43 @@
+{% extends 'catalog/base.html' %}
+
+{% load my_tags %}
+
+{% block content %}
+    <div class="card mb-4 box-shadow h-100 ">
+        <div class="card-header d-flex align-items-center justify-content-center h-80">
+            <h5 class="my-0 font-weight-normal text-truncate"
+                title="{{ object.name_product }}">{{ object.name_product }}</h5>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <img class="card-img-top mx-auto d-block mt-3"
+                     src="{% mediapath_tag object.image_product %}"
+                     alt="{{ object.name_product }}"
+                     style="width: 40rem; height: 40rem;">
+            </div>
+            <div class="col-6">
+                <div class="card-body flex-column h-100">
+                    <h4 class="card-title pricing-card-title">Категория: </h4> {{ object.category }}
+
+                    <h4 class="mt-3 mb-3"> Цена: </h4> {{ object.price_buy|floatformat:0 }} руб.
+                    <h4 class="mt-3 mb-3">    Описание: </h4>
+                    <i class="mb-3"> {{ object.description }} </i>
+
+                    <h4 class="mt-3 mb-3">Доступны варианты:</h4>
+                    <ul>
+                    {% for ver in version_list %}
+                        <li>{{ ver.name_version | capfirst}}</li>
+                    {% endfor %}
+                    </ul>
+
+                    <p class="text-muted mt-5"> Товар добавлен {{ object.created_at }} </p>
+                    <p class="text-muted"> Последнее изменение {{ object.changed_at }}   </p>
+
+                        <a type="button" class="btn btn-lg btn-block btn-outline-primary mb-2"
+                           href="{% url 'catalog:catalog' %}">Вернуться в каталог</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
