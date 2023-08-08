@@ -13,7 +13,7 @@ class UserRegisterForm(StyleFormMixtin, UserCreationForm):
 
 class UserForm(StyleFormMixtin, UserChangeForm):
     class Meta:
-        # model = User
+        model = User
         # fields ="__all__"
         fields =('email', 'password', 'first_name', 'last_name', 'phone','country', 'avatar')
 

@@ -166,6 +166,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "users.User"
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'  # reverse_lazy('catalog:catalog')
+LOGIN_URL = 'users:login' # Сюда перенаправляется неавторизованный пользователь
 
 # Настройки для отправки писем по почте
 EMAIL_HOST = 'smtp.yandex.ru'
@@ -173,4 +174,5 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = 'shikulm.1@yandex.ru'
 EMAIL_HOST_PASSWORD =get_env_value('EMAIL_PASS')
 EMAIL_USE_SSL = True
+
 

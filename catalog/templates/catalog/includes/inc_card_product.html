@@ -10,7 +10,7 @@
          alt="{{ object.name_product }}"
          style="width: 22rem; height: 20rem;">
     {#                        <div class="card-body flex-column h-100" style="height:80% !important">#}
-    <div class="card-body flex-column h-100" style="height:13rem !important">
+    <div class="card-body flex-column h-100" style="height:11rem !important">
         <h3 class="card-title pricing-card-title">{{ object.price_buy|floatformat:0 }} руб.</h3>
         {% if category == None or category == '' %}
             <div class="row text-center match-height">
@@ -19,7 +19,10 @@
         {% endif %}
         <div class="row text-center h-25">
             <p title="{{ object.description }}">{{ object.description|get_to_len:100 }} </p>
+            <p class="text-muted">Добавил: {{ object.owner| default:"неизвестно" }}</p>
         </div>
+    </div>
+    <div class="card-footer">
         <div class="row text-center match-height">
             {#            <div class="col-12">#}
             <button type="button" class="btn btn-sm btn-block btn-outline-primary mb-2">Купить</button>

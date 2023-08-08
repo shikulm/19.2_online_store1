@@ -1,6 +1,8 @@
 import random
 
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import render
 
@@ -19,7 +21,7 @@ class LoginView(BaseLoginView):
     template_name = 'users/login.html'
 
 
-class LogoutView(BaseLogoutView):
+class LogoutView(LoginRequiredMixin, BaseLogoutView):
     pass
 
 
@@ -29,7 +31,7 @@ class RegisterView(CreateView):
     success_url = reverse_lazy('users:login')
     template_name = 'users/register.html'
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     success_url = reverse_lazy('users:profile')
     form_class = UserForm
@@ -82,7 +84,7 @@ class RestorePasswordView(FormView):
                 #  Генерируем и сохраняем пароль
                 new_pass = User.objects.make_random_password(length=12)
                 self.object.set_password(new_pass)
-                self.object.save()
+                self.object.save(update_fields=['password'])
 
                 # Отправляем информацию на почту
                 link_url = self.request.build_absolute_uri(reverse_lazy('users:login'))
@@ -96,6 +98,7 @@ class RestorePasswordView(FormView):
         return super().form_valid(form)
 
 
+@login_required
 def VerificationView(request, pk, key):
     user_verify = User.objects.filter(pk=pk, key=key)
     if user_verify:

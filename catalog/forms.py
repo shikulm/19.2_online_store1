@@ -15,6 +15,7 @@ class ProductForm(StyleFormMixtin, forms.ModelForm):
     class Meta:
         model = Product
         fields ="__all__"
+        exclude = ('owner',)
         # fields = ('name_product',)
         # exclude = ('changed_at',)
 
