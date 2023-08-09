@@ -8,13 +8,6 @@ from catalog.apps import CatalogConfig
 
 app_name = CatalogConfig.name
 
-# urlpatterns = [
-#     path('', home, name='home'),
-#     path('catalog/', catalog, name='catalog'),
-#     path('<int:pk>/catalog/', category_catalog, name='category_catalog'),
-#     path('contacts/', contacts, name='contacts'),
-# ]
-
 
 urlpatterns = [
     path('', HomeTemplateView.as_view(), name='home'),

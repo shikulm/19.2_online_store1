@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
+from django.urls import reverse_lazy
 from dotenv.main import load_dotenv
 
 load_dotenv()
@@ -54,6 +55,8 @@ INSTALLED_APPS = [
 
     'catalog.apps.CatalogConfig',
     'blog.apps.BlogConfig',
+    # 'users.apps.UsersConfig',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -159,3 +162,24 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "users.User"
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'  # reverse_lazy('catalog:catalog')
+LOGIN_URL = 'users:login' # Сюда перенаправляется неавторизованный пользователь
+
+# Настройки для отправки писем по почте
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'shikulm.1@yandex.ru'
+EMAIL_HOST_PASSWORD =get_env_value('EMAIL_PASS')
+EMAIL_USE_SSL = True
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
+
+

@@ -1,6 +1,8 @@
 from datetime import datetime
 
+from django.conf import settings
 from django.db import models
+
 
 # Create your models here.
 NULLABLE = {'blank': True, 'null': True}
@@ -13,6 +15,7 @@ class Product(models.Model):
     image_product = models.ImageField(upload_to='products/', verbose_name= 'изображение (превью)', **NULLABLE)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='категория', **NOT_NULLABLE)
     price_buy = models.FloatField(default=0, verbose_name='цена за покупку', **NOT_NULLABLE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='добавил', **NULLABLE)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания', **NOT_NULLABLE)
     changed_at = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения', **NOT_NULLABLE)
 

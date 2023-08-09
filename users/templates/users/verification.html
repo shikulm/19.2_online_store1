@@ -1,0 +1,35 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-3">
+        </div>
+        <div class="col-6 text-center d-flex align-items-center" style="height: 300px;">
+<!--            <h2 class="text-center mb-5">-->
+<!--                {{ res_verify_msg }}-->
+<!--            </h2>-->
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+        </div>
+        <div class="col-6 text-center">
+
+
+<!--            {% if success_verify %}-->
+<!--                <a class="btn btn-success mb-3 " href="{% url 'users:login' %}">Вход</a>-->
+<!--            {% else %}-->
+<!--                <a class="btn btn-danger mb-3  btn-block" href="{% url 'users:register' %}">Регистрация</a>-->
+<!--            {% endif %}-->
+        </div>
+    </div>
+
+
+{% endblock %}
