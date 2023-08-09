@@ -82,6 +82,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # "django.middleware.cache.UpdateCacheMiddleware",
+                # "django.middleware.cache.FetchFromCacheMiddleware"
             ],
         },
     },
@@ -171,9 +173,9 @@ LOGIN_REDIRECT_URL = '/'  # reverse_lazy('catalog:catalog')
 LOGIN_URL = 'users:login' # Сюда перенаправляется неавторизованный пользователь
 
 # Настройки для отправки писем по почте
-EMAIL_HOST = get_env_value('EMAIL_HOST') # 'smtp.yandex.ru'
+EMAIL_HOST = get_env_value('EMAIL_HOST')
 EMAIL_PORT = 465
-EMAIL_HOST_USER = get_env_value('EMAIL_HOST_USER') # 'shikulm.1@yandex.ru'
+EMAIL_HOST_USER = get_env_value('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD =get_env_value('EMAIL_PASS')
 EMAIL_USE_SSL = True
 
@@ -183,8 +185,7 @@ if CACHE_ENABLED:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": get_env_value('CACHE_LOCATION') #"redis://127.0.0.1:6379",
-            # "LOCATION": "redis://172.30.169.161:6379",
+            "LOCATION": get_env_value('CACHE_LOCATION'),
         }
 }
 
