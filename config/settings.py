@@ -161,6 +161,8 @@ STATICFILES_DIRS = (
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
+
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "users.User"
@@ -169,17 +171,21 @@ LOGIN_REDIRECT_URL = '/'  # reverse_lazy('catalog:catalog')
 LOGIN_URL = 'users:login' # Сюда перенаправляется неавторизованный пользователь
 
 # Настройки для отправки писем по почте
-EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST = get_env_value('EMAIL_HOST') # 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'shikulm.1@yandex.ru'
+EMAIL_HOST_USER = get_env_value('EMAIL_HOST_USER') # 'shikulm.1@yandex.ru'
 EMAIL_HOST_PASSWORD =get_env_value('EMAIL_PASS')
 EMAIL_USE_SSL = True
 
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
-    }
+CACHE_ENABLED = get_env_value('CACHE_ENABLED') == True
+
+if CACHE_ENABLED:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": get_env_value('CACHE_LOCATION') #"redis://127.0.0.1:6379",
+            # "LOCATION": "redis://172.30.169.161:6379",
+        }
 }
 
 

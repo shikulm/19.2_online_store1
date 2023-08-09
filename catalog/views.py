@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from catalog.models import Product, Category, Contacts, Version
 from catalog.forms import ProductForm, VersionForm
+from catalog.services import get_cache_category
 
 
 class HomeTemplateView(TemplateView):
@@ -38,9 +40,11 @@ class ProductListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        context_data['category_list'] = Category.objects.all()
+        # context_data['category_list'] = Category.objects.all()
+        context_data['category_list'] = get_cache_category()
         # context_data['category'] = ''
-        context_data['category'] = Category.objects.get(pk=self.kwargs.get('pk')) if self.kwargs.get('pk') else ''
+        # context_data['category'] = Category.objects.get(pk=self.kwargs.get('pk')) if self.kwargs.get('pk') else ''
+        context_data['category'] = context_data['category_list'].get(pk=self.kwargs.get('pk')) if self.kwargs.get('pk') else ''
 
         return context_data
 
