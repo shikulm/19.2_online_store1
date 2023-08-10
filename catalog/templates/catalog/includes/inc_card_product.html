@@ -30,10 +30,14 @@
             <div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Edit">
                 <a type="button" class="btn btn-block btn-outline-primary"
                    href="{% url 'catalog:product_view' object.pk %}">Посмотреть</a>
-                <a type="button" class="btn btn-block btn-outline-primary"
-                   href="{% url 'catalog:product_edit' object.pk %}">Изменить</a>
-                <a type="button" class="btn btn-block btn-outline-primary"
-                   href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
+                {% if perms.catalog.change_product %}
+                    <a type="button" class="btn btn-block btn-outline-primary"
+                       href="{% url 'catalog:product_edit' object.pk %}">Изменить</a>
+                {% endif %}
+                {% if perms.catalog.delete_product %}
+                    <a type="button" class="btn btn-block btn-outline-primary"
+                       href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
+                {% endif %}
             </div>
         </div>
     </div>

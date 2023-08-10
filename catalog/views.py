@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
@@ -61,10 +61,11 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
         return context_data
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:catalog')
+    permission_required = 'catalog.add_product'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -90,10 +91,11 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:catalog')
+    permission_required = 'catalog.change_product'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -118,9 +120,10 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:catalog')
+    permission_required = 'catalog.delete_product'
 
 
 
