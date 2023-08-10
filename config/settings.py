@@ -15,7 +15,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse_lazy
 from dotenv.main import load_dotenv
 
-load_dotenv()
+
 
 def get_env_value(env_var):
     try:
@@ -29,6 +29,7 @@ def get_env_value(env_var):
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -78,12 +79,12 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                # "django.middleware.cache.UpdateCacheMiddleware",
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # "django.middleware.cache.UpdateCacheMiddleware",
-                # "django.middleware.cache.FetchFromCacheMiddleware"
+                # "django.middleware.cache.FetchFromCacheMiddleware",
             ],
         },
     },
