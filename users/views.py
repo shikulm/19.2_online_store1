@@ -109,11 +109,11 @@ class RestorePasswordView(FormView):
         return super().form_valid(form)
 
 
-@login_required
+# @login_required
 def VerificationView(request, pk, key):
     # Верификация
 
-    user = User.objects.filter(pk=pk, key=key)
+    user = User.objects.filter(pk=pk, key=key)[0]
     if user:
         # Успешная верифкация
         success_verify = True

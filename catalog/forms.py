@@ -46,10 +46,5 @@ class VersionForm(StyleFormMixtin, forms.ModelForm):
         model = Version
         fields = '__all__'
 
-    # def __init__(self, *args, **kwargs):
-    #     """Стилизация формы"""
-    #     super().__init__(*args, **kwargs)
-    #     for field_name, field in self.fields.items():
-    #         if field_name.lower()!='is_actual':
-    #             field.widget.attrs['class'] = 'form-control'
+
 
