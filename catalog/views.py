@@ -12,6 +12,7 @@ from catalog.services import get_cache_category
 class HomeTemplateView(TemplateView):
     template_name = 'catalog/home.html'
     extra_context = {
+        'section': 'catalog',
         'title': 'Главная',
     }
 
@@ -27,6 +28,7 @@ class HomeTemplateView(TemplateView):
 class ProductListView(LoginRequiredMixin, ListView):
     model = Product
     extra_context = {
+        'section': 'catalog',
         'title': 'Каталог',
     }
 
@@ -51,6 +53,10 @@ class ProductListView(LoginRequiredMixin, ListView):
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
+    extra_context = {
+        'section': 'catalog',
+        'title': 'Каталог',
+    }
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -66,6 +72,10 @@ class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     form_class = ProductForm
     success_url = reverse_lazy('catalog:catalog')
     permission_required = 'catalog.add_product'
+    extra_context = {
+        'section': 'catalog',
+        'title': 'Каталог',
+    }
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -96,6 +106,10 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
     form_class = ProductForm
     success_url = reverse_lazy('catalog:catalog')
     permission_required = 'catalog.change_product'
+    extra_context = {
+        'section': 'catalog',
+        'title': 'Каталог',
+    }
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -124,6 +138,10 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     model = Product
     success_url = reverse_lazy('catalog:catalog')
     permission_required = 'catalog.delete_product'
+    extra_context = {
+        'section': 'catalog',
+        'title': 'Каталог',
+    }
 
 
 
@@ -170,6 +188,7 @@ class ContactsCreateView(CreateView):
     success_url = reverse_lazy('catalog:contacts_create')
 
     extra_context = {
+        'section': 'catalog',
         'title': 'Контакты',
     }
 

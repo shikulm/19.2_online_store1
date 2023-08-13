@@ -180,6 +180,7 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = get_env_value('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD =get_env_value('EMAIL_PASS')
 EMAIL_USE_SSL = True
+EMAIL_USE_TLS = True
 
 CACHE_ENABLED = get_env_value('CACHE_ENABLED') == True
 
