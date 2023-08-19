@@ -1,0 +1,36 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% load static %}
+
+
+
+{% block content %}
+
+<script>
+$('.row.match-height').each(function() {
+   $(this).find('.card').not('.card .card').matchHeight(); // Not .card .card prevents collapsible cards from taking height
+});
+</script>
+
+
+    <div class="container-fluid">
+{#      <div class="row text-center match-height gy-5">#}
+{#          {% include 'catalog/includes/inc_category_menu.html' %}#}
+{#      </div>#}
+{#        <h2 text-center gy-3> {% if category %} {{ category }} {% endif %} </h2>#}
+
+
+            {% if perms.client.add_product %}
+              <a type="button" class="btn btn-block btn-outline-primary col-2 mb-3"
+                   href="{% url 'mailing:client_create' %}">Добавить клиента</a>
+            {% endif %}
+
+        <div class="row text-center match-height gy-3">
+            {% for object in object_list %}
+                <div class="col-3">
+                    {% include 'mailing/includes/inc_card_client.html' %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

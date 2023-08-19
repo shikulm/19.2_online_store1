@@ -2,14 +2,14 @@
       <h5 class="card-header fa fa-bars"> Меню </h5>
     <div class="card-body bg-black h-100 style="height: 10rem;"">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link {% if title == 'Клиенты' %} active {% endif %} fa fa-home float-start text-white bg-blue" id="v-pills-home-tab" data-toggle="pill" href="{% url 'catalog:home' %}" role="tab" aria-controls="v-pills-home" aria-selected="true">
+            <a class="nav-link {% if title == 'Клиенты' %} active {% endif %} fa fa-home float-start text-white bg-blue" id="v-pills-home-tab" data-toggle="pill" href="{% url 'mailing:client_list' %}" role="tab" aria-controls="v-pills-home" aria-selected="true">
                 Клиенты
             </a>
-            <a class="nav-link {% if title == 'Письма' %} active {% endif %} fa fa-star float-start text-white bg-blue" id="v-pills-home-tab" data-toggle="pill" href="{% url 'catalog:catalog' %}" role="tab" aria-controls="v-pills-home" aria-selected="true">
-                Письма
+            <a class="nav-link {% if title == 'Сообщения' %} active {% endif %} fa fa-star float-start text-white bg-blue" id="v-pills-home-tab" data-toggle="pill" href="{% url 'mailing:message_list' %}" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                Сообщения
             </a>
 
-            <a class="nav-link {% if title == 'Настройка' %} active {% endif %} fa fa-shopping-cart float-start text-white bg-blue" id="v-pills-home-tab" data-toggle="pill" href="#" role="tab" aria-controls="v-pills-home" aria-selected="true">
+            <a class="nav-link {% if title == 'Настройки' %} active {% endif %} fa fa-shopping-cart float-start text-white bg-blue" id="v-pills-home-tab" data-toggle="pill" href="{% url 'mailing:setting_list' %}" role="tab" aria-controls="v-pills-home" aria-selected="true">
                 Настройка рассылки
             </a>
             <a class="nav-link {% if title == 'Журнал рассылки' %} active {% endif %} fa fa-shopping-cart float-start text-white bg-blue" id="v-pills-home-tab" data-toggle="pill" href="#" role="tab" aria-controls="v-pills-home" aria-selected="true">

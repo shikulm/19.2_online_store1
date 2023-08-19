@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_crontab',
+
     'catalog.apps.CatalogConfig',
     'blog.apps.BlogConfig',
     # 'users.apps.UsersConfig',
@@ -180,8 +182,9 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = get_env_value('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD =get_env_value('EMAIL_PASS')
 EMAIL_USE_SSL = True
-EMAIL_USE_TLS = True
+# EMAIL_USE_TLS = True
 
+# Настройки для кеширования
 CACHE_ENABLED = get_env_value('CACHE_ENABLED') == True
 
 if CACHE_ENABLED:
@@ -192,4 +195,13 @@ if CACHE_ENABLED:
         }
 }
 
+# Настройка задач по расписанию
 
+CRONJOBS = [
+    ('*/1 * * * *', 'mailing.services.send_mails'),
+    # ('*/1 * * * *', 'print("Привет")'),
+]
+
+# python manage.py crontab show
+# python manage.py crontab add
+# python manage.py crontab remove

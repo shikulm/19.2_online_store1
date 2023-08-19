@@ -1,0 +1,131 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% load static %}
+
+
+
+
+{% block content %}
+
+    {#    <script>#}
+    {#        $(document).ready(function () {#}
+    {#            $('#move-right').click(function () {#}
+    {#                var selectedOptions = $('#available-clients option:selected');#}
+    {#                $('#selected-clients').append(selectedOptions);#}
+    {#            });#}
+    {##}
+    {#            $('#move-left').click(function () {#}
+    {#                var selectedOptions = $('#selected-clients option:selected');#}
+    {#                $('#available-clients').append(selectedOptions);#}
+    {#            });#}
+    {#        });#}
+    {#    </script>#}
+
+    <div class="container-fluid">
+        <h2 class="my-0 font-weight-normal text-truncate text-center">Список рассылки</h2>
+        <div class="row">
+            <div class="col-5">
+                <div class="col-12"></div>
+                <h5 class="my-0 font-weight-normal text-truncate mb-3">
+                    Тема сообщения: <br> {{ mailingsetting.message }} </h5> <br>
+                <span class="mb-3">{{ mailingsetting.message.body }} </span>
+                <br> <br>
+                <hr>
+
+                <h5 class="my-0 font-weight-normal text-truncate mb-3">
+                Рассылка: <br></h5>
+                <h5 class="my-0 font-weight-normal text-truncate mb-3">
+                    Время: {{ mailingsetting.time }} <br>
+                    Период: {{ mailingsetting.get_period_display }} <br>
+                    Статус: {{ mailingsetting.get_status_display }} <br>
+                </h5>
+                <hr>
+            </div>
+            {#        <div class="row">#}
+            {#            <form method="post" action="{% url 'mailing:setting_list' %}">#}
+            {#            <form method="POST" action="{% url 'mailing:mailing_client_save' pk_setting %}">#}
+            {#            <form method="POST" action="{% url 'mailing:mailing_client' pk_setting%}>#}
+            {#            <form method="POST" action="{% url 'mailing:mailing_client' pk_setting%}>#}
+            {#            <form method="POST" action="{% url 'mailing:mailing_client_save'%}>#}
+
+            <div class="col-1"></div>
+            <div class="col-6">
+                <form method="POST">
+                    {% csrf_token %}
+                    {#                <input type='hidden' id='pk_setting' value={{ pk_setting }} />#}
+                    <input type='hidden' id='pk_setting' name="pk_setting" value='{{ pk_setting }}' />
+                    <label for="selected-clients" class="label col-form-label-lg">Выбранные клиенты</label>
+                    <select id="selected-clients" multiple name="selected_clients" class="form-select" size="7"
+                            aria-label="Выбранные клиенты">
+                        {% for item in selected_clients_list %}
+                            <option value="{{ item.pk }}">{{ item.last_name }} {{ item.first_name }} ({{ item.email }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <br>
+
+                    {#                <a class="btn btn-primary" id="move-right" href="{% url 'mailing:mailing_client_add' pk_setting %}">Добавить</a>#}
+                    {#                <button class="btn btn-primary" id="move-right" onclick="{% url 'mailing:mailing_client_save'%}">Добавить</button>#}
+                    <button class="btn btn-primary" id="move-right">Добавить</button>
+                    <button class="btn btn-dark" id="move-left">Удалить</button>
+                    <br><br>
+
+                    <label for="available-clients" class="label col-form-label-lg">Клиенты для добавления</label>
+                    <select id="available-clients" multiple name="available_clients" class="form-select" size="7"
+                            aria-label="Клиенты для добавления">
+                        {% for item in clients_for_select %}
+                            <option value="{{ item.pk }}">{{ item.last_name }} {{ item.first_name }} ({{ item.email }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <br>
+
+                    {#                <button type="submit">Сохранить</button>#}
+                    <a class="btn btn-success " href="{% url 'mailing:setting_list' %}">Сохранить</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{#        {% if perms.mailing.add_message %}#}
+{#            <a type="button" class="btn btn-block btn-outline-primary col-2 mb-3"#}
+{#               href="{% url 'mailing:message_create' %}">Добавить сообщение</a>#}
+{#        {% endif %}#}
+{##}
+{#        <div class="row text-center match-height gy-3">#}
+{#            {% for object in object_list %}#}
+{#                <div class="col-3">#}
+{#                    <div class="card" style="height: 225px">#}
+{#                        <div class="card-header">#}
+{#                            <h5 class="my-0 font-weight-normal text-truncate"#}
+{#                                title="{{ object.subject }}">#}
+{#                                {{ object.subject }} </h5>#}
+{#                        </div>#}
+{#                        <div class="card-body">#}
+{#                            <div class="row text-center">#}
+{#                                <p title="{{ object.body }}">{{ object.body|get_to_len:100 }} </p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="card-footer">#}
+{#                            <div class="row text-center match-height">#}
+{#                                <div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Edit">#}
+{#                                    {% if perms.mailing.change_message %}#}
+{#                                        <a type="button" class="btn btn-block btn-outline-primary"#}
+{#                                           href="{% url 'mailing:message_edit' object.pk %}">Изменить</a>#}
+{#                                    {% endif %}#}
+{#                                    {% if perms.mailing.delete_message %}#}
+{#                                        <a type="button" class="btn btn-block btn-outline-primary"#}
+{#                                           href="{% url 'mailing:message_delete' object.pk %}">Удалить</a>#}
+{#                                    {% endif %}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#    </div>#}
+{#{% endblock %}#}

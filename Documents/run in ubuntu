@@ -1,0 +1,10 @@
+source env/bin/activate
+
+https://cpab.ru/kak-avtomaticheski-zapustit-cron-v-wsl-v-windows-10-i-11/
+
+sudo service postgresql start
+sudo service redis-server start
+sudo service cron start
+
+sudo service cron status
+sudo service cron stop

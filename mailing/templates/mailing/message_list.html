@@ -1,0 +1,47 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% load static %}
+
+
+
+{% block content %}
+    <div class="container-fluid">
+        {% if perms.mailing.add_message %}
+            <a type="button" class="btn btn-block btn-outline-primary col-2 mb-3"
+               href="{% url 'mailing:message_create' %}">Добавить сообщение</a>
+        {% endif %}
+
+        <div class="row text-center match-height gy-3">
+            {% for object in object_list %}
+                <div class="col-3">
+                    <div class="card" style="height: 225px">
+                        <div class="card-header">
+                            <h5 class="my-0 font-weight-normal text-truncate"
+                                title="{{ object.subject }}">
+                                {{ object.subject }} </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <p title="{{ object.body }}">{{ object.body|get_to_len:100 }} </p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row text-center match-height">
+                                <div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Edit">
+                                    {% if perms.mailing.change_message %}
+                                        <a type="button" class="btn btn-block btn-outline-primary"
+                                           href="{% url 'mailing:message_edit' object.pk %}">Изменить</a>
+                                    {% endif %}
+                                    {% if perms.mailing.delete_message %}
+                                        <a type="button" class="btn btn-block btn-outline-primary"
+                                           href="{% url 'mailing:message_delete' object.pk %}">Удалить</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+{% endblock %}

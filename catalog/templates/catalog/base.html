@@ -37,7 +37,7 @@
         <div class=" container">
 <div class="row mt-5">
     <div class="col-2">
-        {{ section }}
+{#        {{ section }}#}
 {#        {% include 'catalog/includes/inc_main_menu.html' %}#}
         {% include section|default:"catalog"|add:'/includes/inc_main_menu.html' %}
     </div>
@@ -73,7 +73,7 @@
                 <ul class="list-unstyled text-small">
                     <li><a class="text-muted" href="{% url 'blog:list_all' %}">Блог (все записи)</a></li>
                     <li><a class="text-muted" href="/admin">Панель администратора</a></li>
-                    <li><a class="text-muted" href="#">Рассылка</a></li>
+                    <li><a class="text-muted" href="{%  url 'mailing:client_list' %}">Рассылка</a></li>
                 </ul>
             {%  endif %}
         </div>

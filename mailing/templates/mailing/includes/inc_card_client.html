@@ -1,0 +1,31 @@
+{% load my_tags %}
+
+<div class="card mb-4 box-shadow h-100 ">
+    {#    <div class="card-header d-flex align-items-center justify-content-center h-80">#}
+    <div class="card-header align-items-center justify-content-center h-80">
+        <h5 class="my-0 font-weight-normal text-truncate"
+            title="{{ object.last_name }} {{ object.first_name }}">
+            {{ object.last_name }} {{ object.first_name }} </h5>
+        <h5>{{ object.email }}</h5>
+    </div>
+    {#    <div class="card-body flex-column h-100" style="height:11rem !important">#}
+    <div class="card-body flex-column h-100">
+        <div class="row text-center h-25">
+            <p title="{{ object.comment }}">{{ object.comment|get_to_len:100 }} </p>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row text-center match-height">
+            <div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Edit">
+                {% if perms.mailing.change_client %}
+                    <a type="button" class="btn btn-block btn-outline-primary"
+                       href="{% url 'mailing:client_edit' object.pk %}">Изменить</a>
+                {% endif %}
+                {% if perms.mailing.delete_client %}
+                    <a type="button" class="btn btn-block btn-outline-primary"
+                       href="{% url 'mailing:client_delete' object.pk %}">Удалить</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

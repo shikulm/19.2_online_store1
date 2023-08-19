@@ -1,4 +1,7 @@
 from django.db import models
+from django.utils import timezone
+from django.utils.timezone import localtime, now
+
 from catalog.models.category import NULLABLE, NOT_NULLABLE
 # Create your models here.
 
@@ -40,7 +43,8 @@ class MailingSetting(models.Model):
 
     STATUSES = ((STATUS_FINISHED, 'завершена'), (STATUS_CREATED, 'создана'), (STATUS_ACTIVATED, 'запущена'))
 
-    time = models.TimeField(verbose_name='время рассылки', **NOT_NULLABLE)
+    # time = models.TimeField(verbose_name='время рассылки', **NOT_NULLABLE, default=localtime().now())
+    time = models.TimeField(verbose_name='время рассылки', **NOT_NULLABLE, default=now())
     period = models.CharField(max_length=150, choices=PERIODS, default=PERIOD_DAILY, verbose_name='период', **NOT_NULLABLE)
     status = models.CharField(max_length=150, choices=STATUSES, default=STATUS_CREATED, verbose_name='статус', **NOT_NULLABLE)
 
