@@ -131,7 +131,6 @@ class MailingSettingDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Dele
 
 # class MailingClientListView(ListView):
 class MailingClientListView(TemplateView):
-# class MailingClientListView(View):
     model = MailingClinet
     extra_context = {
         'section': 'mailing',
@@ -159,16 +158,16 @@ class MailingClientListView(TemplateView):
         return context_data
 
     def post(self, request, *args, **kwargs):
-        print('MailingClientListView.POST')
+        # print('MailingClientListView.POST')
         print(self.request.method)
         if request.method == 'POST':
             # pk_setting = self.kwargs['pk_setting']
             pk_setting = request.POST.get('pk_setting')
-            print('pk_setting ', pk_setting)
+            # print('pk_setting ', pk_setting)
             pk_clients_list_add = request.POST.getlist('selected_clients')
-            print('pk_clients_list_add', pk_clients_list_add)
+            # print('pk_clients_list_add', pk_clients_list_add)
             pk_clients_list_delete = request.POST.getlist('available_clients')
-            print('pk_clients_list_delete', pk_clients_list_delete)
+            # print('pk_clients_list_delete', pk_clients_list_delete)
 
 
             for pk_client in pk_clients_list_delete:
@@ -182,7 +181,7 @@ class MailingClientListView(TemplateView):
         # return render(request, 'mailing/mailingsetting_list.html')
         # return render(request, 'mailing/mailingclient_list.html', pk_setting)
         return redirect(to = reverse_lazy('mailing:mailing_client', args=[pk_setting]))
-        # return render(request, 'mailing/mailingclient_list.html', 1)
+
 
 
 # def post(self, request, *args, **kwargs):
