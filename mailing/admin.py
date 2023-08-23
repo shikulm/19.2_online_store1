@@ -17,8 +17,8 @@ class MessageAdmin(admin.ModelAdmin):
 
 @admin.register(MailingSetting)
 class MailingSettingAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'time', 'period', 'status', 'message')
-    list_filter = ('time', 'period', 'status', 'message',)
+    list_display = ('pk', 'datestart', 'dateend', 'period', 'status', 'message')
+    list_filter = ('datestart', 'dateend', 'period', 'status', 'message',)
     search_fields = ('period', 'status', 'message',)
 
 

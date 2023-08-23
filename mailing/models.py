@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.utils import timezone
 from django.utils.timezone import localtime, now
@@ -43,15 +45,17 @@ class MailingSetting(models.Model):
 
     STATUSES = ((STATUS_FINISHED, 'завершена'), (STATUS_CREATED, 'создана'), (STATUS_ACTIVATED, 'запущена'))
 
+    datestart = models.DateTimeField(verbose_name='дата начала', **NULLABLE, default=datetime.datetime.now(datetime.timezone.utc))
+    dateend = models.DateTimeField(verbose_name='дата окончания', **NULLABLE, default=datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(days=7))
     # time = models.TimeField(verbose_name='время рассылки', **NOT_NULLABLE, default=localtime().now())
-    time = models.TimeField(verbose_name='время рассылки', **NOT_NULLABLE, default=now())
+    # time = models.TimeField(verbose_name='время рассылки', **NOT_NULLABLE, default=now())
     period = models.CharField(max_length=150, choices=PERIODS, default=PERIOD_DAILY, verbose_name='период', **NOT_NULLABLE)
     status = models.CharField(max_length=150, choices=STATUSES, default=STATUS_CREATED, verbose_name='статус', **NOT_NULLABLE)
 
     message = models.ForeignKey(to='Message', on_delete=models.CASCADE, verbose_name='сообщение рассылки', **NOT_NULLABLE)
 
     def __str__(self):
-        return f'{self.time} ({self.period} {self.status})'
+        return f'{self.datestart}-{self.dateend} ({self.period} {self.status})'
 
     class Meta:
         verbose_name = 'Настройка рассылки'

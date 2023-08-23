@@ -26,11 +26,12 @@
 
           <ul class="dropdown-menu">
               {% if user.is_authenticated %}
-                <li><a class="dropdown-item" href="{% url 'users:profile' %}">Профиль</a></li>
-                <li><a class="dropdown-item" href="{% url 'users:logout' %}">Выход</a></li>
+{#                <li><a class="dropdown-item" href="{% url 'users:profile' section|default:"mailing" %}">Профиль</a></li>#}
+                <li><a class="dropdown-item" href="{% url 'users:profile' "mailing" %}">Профиль</a></li>
+                <li><a class="dropdown-item" href="{% url 'users:logout' "mailing" %}">Выход</a></li>
               {% else %}
-                <li><a class="dropdown-item" href="{% url 'users:register' %}">Регистрация</a></li>
-                <li><a class="dropdown-item" href="{% url 'users:login' %}">Вход</a></li>
+                <li><a class="dropdown-item" href="{% url 'users:register' section|default:"mailing" %}">Регистрация</a></li>
+                <li><a class="dropdown-item" href="{% url 'users:login' section|default:"mailing" %}">Вход</a></li>
               {% endif %}
           </ul>
         </div>

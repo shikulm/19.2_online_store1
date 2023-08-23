@@ -1,4 +1,6 @@
+# Запуск сервера
 source env/bin/activate
+python manage.py runserver 8000
 
 https://cpab.ru/kak-avtomaticheski-zapustit-cron-v-wsl-v-windows-10-i-11/
 
@@ -8,3 +10,10 @@ sudo service cron start
 
 sudo service cron status
 sudo service cron stop
+
+# Запуск cron
+- Принудительный запуск рассылки
+python manage.py send
+python manage.py crontab show
+python manage.py crontab add
+python manage.py crontab remove

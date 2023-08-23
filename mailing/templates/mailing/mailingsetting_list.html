@@ -15,7 +15,8 @@
             {% if object_list %}
                 <thead>
                 <tr text-center match-height>
-                    <th>Время</th>
+                    <th>Дата от</th>
+                    <th>Дата до</th>
                     <th>Период</th>
                     <th>Статус</th>
                     <th>Сообщение</th>
@@ -34,11 +35,12 @@
 
                     <td text-center match-height>
                         {% if perms.mailing.change_mailingsetting %}
-                            <a href="{% url 'mailing:setting_edit' object.pk %}" title="Изменить">{{ object.time }}</a>
+                            <a href="{% url 'mailing:setting_edit' object.pk %}" title="Изменить">{{ object.datestart }}</a>
                         {% else %}
-                            {{ object.time }}
+                            {{ object.datestart }}
                         {% endif %}
                     </td>
+                    <td>{{ object.dateend }}</td>
                     <td>{{ object.get_period_display }}</td>
                     <td>{{ object.get_status_display }}</td>
                     <td>{{ object.message }}</td>

@@ -17,7 +17,8 @@
                     </form>
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'users:restore_password' %}">Восстановить пароль</a>
+{#                    <a href="{% url 'users:restore_password' %}">Восстановить пароль</a>#}
+                    <a href="{% url 'users:restore_password' section|default:"catalog" %}">Восстановить пароль</a>
 
                 </div>
             </div>

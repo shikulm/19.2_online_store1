@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+
 from django.core.exceptions import ImproperlyConfigured
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from dotenv.main import load_dotenv
 
 
@@ -168,13 +169,23 @@ STATICFILES_DIRS = (
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 
+DEFAULT_SECTION = 'catalog'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# AUTH_USER_MODEL = "users.User"
+# LOGOUT_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL = '/'  # reverse_lazy('catalog:catalog')
+# LOGIN_URL = 'users:login' # Сюда перенаправляется неавторизованный пользователь
+
 AUTH_USER_MODEL = "users.User"
-LOGOUT_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/' # Сюда перенаправляется пользователь сразу после авторизации
 LOGIN_REDIRECT_URL = '/'  # reverse_lazy('catalog:catalog')
-LOGIN_URL = 'users:login' # Сюда перенаправляется неавторизованный пользователь
+# LOGIN_URL = 'users:login' # Сюда перенаправляется неавторизованный пользователь
+
+
+# LOGIN_URL = reverse('users:login', kwargs={'sectiom': DEFAULT_SECTION}) # Сюда перенаправляется неавторизованный пользователь
+
 
 # Настройки для отправки писем по почте
 EMAIL_HOST = get_env_value('EMAIL_HOST')
@@ -199,9 +210,9 @@ if CACHE_ENABLED:
 
 CRONJOBS = [
     ('*/1 * * * *', 'mailing.services.send_mails'),
-    # ('*/1 * * * *', 'print("Привет")'),
 ]
 
 # python manage.py crontab show
 # python manage.py crontab add
 # python manage.py crontab remove
+

@@ -19,11 +19,13 @@ class MessageForm(StyleFormMixtin, forms.ModelForm):
 class MailingSettingForm(StyleFormMixtin, forms.ModelForm):
     class Meta:
         model = MailingSetting
-        fields = ('time', 'period', 'status', 'message')
+        fields = ('datestart', 'dateend', 'period', 'status', 'message')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # self.fields['time'].widget.attrs['initial'] = '12:00'
+        self.fields['datestart'].widget.attrs['title'] = 'DD-MM-YYYY HH:MM:SS'
+        # self.fields['datestart'].widget.attrs['placeholder'] = 'YYYY-MM-DD'
+
 
 # class MailiingClient(forms):
 #     selected_clients =
