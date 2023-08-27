@@ -5,7 +5,9 @@
 
 {% block content %}
     <div class="container-fluid">
-        {% if perms.mailing.add_message %}
+        {% is_manager_mailing_tag as is_manager_mailing %}
+        {% if not is_manager_mailing %}
+            {#        {% if perms.mailing.add_message %}#}
             <a type="button" class="btn btn-block btn-outline-primary col-2 mb-3"
                href="{% url 'mailing:setting_create' %}">Добавить рассылку</a>
         {% endif %}
@@ -34,8 +36,10 @@
 
 
                     <td text-center match-height>
-                        {% if perms.mailing.change_mailingsetting %}
-                            <a href="{% url 'mailing:setting_edit' object.pk %}" title="Изменить">{{ object.datestart }}</a>
+                        {# {% if perms.mailing.change_mailingsetting %}#}
+                        {% if not is_manager_mailing %}
+                            <a href="{% url 'mailing:setting_edit' object.pk %}"
+                               title="Изменить">{{ object.datestart }}</a>
                         {% else %}
                             {{ object.datestart }}
                         {% endif %}
@@ -49,13 +53,36 @@
                     {#                    {% endif %}#}
 
                     <td text-center match-height>
-                        {% if perms.mailing.change_mailingclient %}
+
+                        {#  {% if perms.mailing.change_mailingclient %}#}
+                        {% if not is_manager_mailing %}
                             <a href="{% url 'mailing:mailing_client' object.pk %}">{{ object.mailingclinet_set.count }}
                                 подписчиков </a>
                         {% else %}
                             {{ object.mailingclinet_set.count }} подписчиков
                         {% endif %}
                     </td>
+
+
+                    {% if perms.mailing.set_status %}
+                        <td text-center match-height>
+                            {#                            {% if object.status == object.STATUS_ACTIVATED %}#}
+                            {#                                <a href="{% url 'mailing:change_status_setting' object.pk %}"> Отключить </a>>#}
+                            {#                            {% else %}#}
+                            {#                                <a href="{% url 'mailing:change_status_setting' object.pk %}"> Подключить </a>>#}
+                            {#                            {% endif %}#}
+
+
+                            <a href="{% url 'mailing:change_status_setting' object.pk %}">
+                                {% if object.status == object.STATUS_ACTIVATED %}
+                                    Отключить
+                                {% else %}
+                                    Подключить
+                                {% endif %}
+                            </a>
+                        </td>
+                    {% endif %}
+
                     <td text-center match-height>
                         <div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Edit">
                             {#                            {% if perms.mailing.change_mailingsetting %}#}
@@ -66,7 +93,9 @@
                             {#                                <a type="button" class="btn btn-block btn-outline-primary"#}
                             {#                                   href="{% url 'mailing:setting_edit' object.pk %}">Список рассылки</a>#}
                             {#                            {% endif %}#}
-                            {% if perms.mailing.delete_mailingsetting %}
+
+                            {# {% if perms.mailing.delete_mailingsetting %}#}
+                            {% if not is_manager_mailing %}
                                 <a type="button" class="btn btn-danger btn-warning text-center match-height"
                                    href="{% url 'mailing:setting_delete' object.pk %}" title="Удалить"> X</a>
                             {% endif %}

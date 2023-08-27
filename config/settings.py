@@ -209,7 +209,8 @@ if CACHE_ENABLED:
 # Настройка задач по расписанию
 
 CRONJOBS = [
-    ('*/1 * * * *', 'mailing.services.send_mails'),
+    # ('*/1 * * * *', 'mailing.services.send_mails'),
+    ('*/1 * * * *', 'services.send_mails'),
 ]
 
 # python manage.py crontab show

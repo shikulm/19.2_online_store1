@@ -6,20 +6,21 @@ from mailing.models import Client, Message, MailingSetting, MailingClinet, Maili
 # Register your models here.
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'email', 'first_name', 'last_name')
-    list_filter = ('email', 'first_name', 'last_name',)
-
+    list_display = ('pk', 'email', 'first_name', 'last_name', 'owner',)
+    list_filter = ('email', 'first_name', 'last_name', 'owner',)
+    search_fields = ('period', 'status', 'message', 'owner',)
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'subject')
-    list_filter = ('subject', 'body',)
+    list_display = ('pk', 'subject', 'owner',)
+    list_filter = ('subject', 'body', 'owner',)
+    search_fields = ('period', 'status', 'message', 'owner',)
 
 @admin.register(MailingSetting)
 class MailingSettingAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'datestart', 'dateend', 'period', 'status', 'message')
-    list_filter = ('datestart', 'dateend', 'period', 'status', 'message',)
-    search_fields = ('period', 'status', 'message',)
+    list_display = ('pk', 'datestart', 'dateend', 'period', 'status', 'message', 'owner',)
+    list_filter = ('datestart', 'dateend', 'period', 'status', 'message', 'owner',)
+    search_fields = ('period', 'status', 'message', 'owner',)
 
 
 @admin.register(MailingClinet)

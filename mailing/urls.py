@@ -2,16 +2,18 @@ from django.urls import path
 from django.views.decorators.cache import cache_page, never_cache
 
 from mailing.apps import MailingConfig
-from mailing.views import ClientListView, ClientCreateView, ClientUpdateView, ClientDeleteView
-    # toggle_clients  # , toggle_clients_add
+from mailing.views import ClientListView, ClientCreateView, ClientUpdateView, ClientDeleteView, HomeMailingView
+# toggle_clients  # , toggle_clients_add
 from mailing.views import MessageListView, MessageCreateView, MessageUpdateView, MessageDeleteView
-from mailing.views import MailingSettingListView, MailingSettingCreateView, MailingSettingUpdateView, MailingSettingDeleteView, MailingClientListView
+from mailing.views import MailingSettingListView, MailingSettingCreateView, MailingSettingUpdateView, MailingSettingDeleteView, MailingClientListView, ChangeSettingStatusView
 
 app_name = MailingConfig.name
 
 
 urlpatterns = [
-    path('', (ClientListView.as_view()), name='client_list'),
+    path('', cache_page(60)(HomeMailingView.as_view()), name='home_mailing'),
+    # path('',(HomeMailingView.as_view()), name='home_mailing'),
+    path('client/', (ClientListView.as_view()), name='client_list'),
     path('client/create/', ClientCreateView.as_view(), name='client_create'),
     path('client/edit/<int:pk>/', ClientUpdateView.as_view(), name='client_edit'),
     path('client/delete/<int:pk>/', ClientDeleteView.as_view(), name='client_delete'),
@@ -26,6 +28,7 @@ urlpatterns = [
     path('setting/edit/<int:pk>/', MailingSettingUpdateView.as_view(), name='setting_edit'),
     path('setting/delete/<int:pk>/', MailingSettingDeleteView.as_view(), name='setting_delete'),
     path('setting/<int:pk_setting>/clients_list/edit', MailingClientListView.as_view(), name='mailing_client'),
+    path('setting/<int:pk>/change_status_setting', ChangeSettingStatusView.as_view(), name='change_status_setting'),
     # path('setting/clients_list/save', toggle_clients, name='mailing_client_save'),
     # path('setting/<int:pk_setting>/clients_list/save', toggle_clients, name='mailing_client_save'),
     # path('setting/<int:pk_setting>/clients_list/add', toggle_clients_add, name='mailing_client_add'),

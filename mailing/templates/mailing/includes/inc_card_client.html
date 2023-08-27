@@ -17,11 +17,30 @@
     <div class="card-footer">
         <div class="row text-center match-height">
             <div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Edit">
-                {% if perms.mailing.change_client %}
+
+
+{#                {% if is_manager_mailing == True %} True {% endif %} <br>#}
+{#                {% if is_manager_mailing_tag == None %} None {% endif %} <br>#}
+{#                {% is_manager_mailing_tag %}#}
+{#                {% if is_manager_mailing_tag|get_type == 'str' %}#}
+{#                    String#}
+{#                {% elif is_manager_mailing_tag|get_type == 'bool' %}#}
+{#                    boolean#}
+{#                {% elif is_manager_mailing_tag|get_type == 'datetime.date' %}#}
+{#                    Date#}
+{#                {% else %}#}
+{#                    Oh no!#}
+{#                {% endif %}#}
+{##}
+{#                {% load is_manager_mailing_tag from my_tags %}#}
+                {% is_manager_mailing_tag as is_manager_mailing %}
+{#                {{ is_manager_mailing }}#}
+                {% if not is_manager_mailing %}
+                    {#                {% if perms.mailing.change_client %}#}
                     <a type="button" class="btn btn-block btn-outline-primary"
                        href="{% url 'mailing:client_edit' object.pk %}">Изменить</a>
-                {% endif %}
-                {% if perms.mailing.delete_client %}
+                    {#                {% endif %}#}
+                    {#                {% if perms.mailing.delete_client %}#}
                     <a type="button" class="btn btn-block btn-outline-primary"
                        href="{% url 'mailing:client_delete' object.pk %}">Удалить</a>
                 {% endif %}

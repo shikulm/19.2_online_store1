@@ -6,7 +6,9 @@
 
 {% block content %}
     <div class="container-fluid">
-        {% if perms.mailing.add_message %}
+        {#        {% if perms.mailing.add_message %}#}
+        {% is_manager_mailing_tag as is_manager_mailing %}
+        {% if not is_manager_mailing %}
             <a type="button" class="btn btn-block btn-outline-primary col-2 mb-3"
                href="{% url 'mailing:message_create' %}">Добавить сообщение</a>
         {% endif %}
@@ -28,11 +30,14 @@
                         <div class="card-footer">
                             <div class="row text-center match-height">
                                 <div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Edit">
-                                    {% if perms.mailing.change_message %}
+                                    {% is_manager_mailing_tag as is_manager_mailing %}
+                                    {% if not is_manager_mailing %}
+
+                                        {# {% if perms.mailing.change_message %}#}
                                         <a type="button" class="btn btn-block btn-outline-primary"
                                            href="{% url 'mailing:message_edit' object.pk %}">Изменить</a>
-                                    {% endif %}
-                                    {% if perms.mailing.delete_message %}
+                                        {#                                    {% endif %}#}
+                                        {#                                    {% if perms.mailing.delete_message %}#}
                                         <a type="button" class="btn btn-block btn-outline-primary"
                                            href="{% url 'mailing:message_delete' object.pk %}">Удалить</a>
                                     {% endif %}

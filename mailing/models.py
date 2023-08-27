@@ -1,4 +1,5 @@
 import datetime
+from users.models import User
 
 from django.db import models
 from django.utils import timezone
@@ -12,6 +13,7 @@ class Client(models.Model):
     first_name = models.CharField(max_length=150, verbose_name='имя', **NOT_NULLABLE)
     last_name = models.CharField(max_length=150, verbose_name='фамилия', **NOT_NULLABLE)
     comment = models.TextField(verbose_name='комментарий', **NULLABLE)
+    owner = models.ForeignKey(to='users.User', on_delete=models.SET_NULL, default=1, verbose_name='Владелец', **NULLABLE)
 
     def __str__(self):
         return f'{self.last_name} {self.first_name} ({self.email})'
@@ -23,6 +25,7 @@ class Client(models.Model):
 class Message(models.Model):
     subject = models.CharField(max_length=150, verbose_name='тема письма', **NOT_NULLABLE)
     body = models.TextField(verbose_name='содержимое письма', **NOT_NULLABLE)
+    owner = models.ForeignKey(to='users.User', on_delete=models.SET_NULL, default=1, verbose_name='Владелец', **NULLABLE)
 
     def __str__(self):
         return f'{self.subject}'
@@ -53,6 +56,7 @@ class MailingSetting(models.Model):
     status = models.CharField(max_length=150, choices=STATUSES, default=STATUS_CREATED, verbose_name='статус', **NOT_NULLABLE)
 
     message = models.ForeignKey(to='Message', on_delete=models.CASCADE, verbose_name='сообщение рассылки', **NOT_NULLABLE)
+    owner = models.ForeignKey(to='users.User', on_delete=models.SET_NULL, default=1, verbose_name='Владелец', **NULLABLE)
 
     def __str__(self):
         return f'{self.datestart}-{self.dateend} ({self.period} {self.status})'
@@ -60,6 +64,22 @@ class MailingSetting(models.Model):
     class Meta:
         verbose_name = 'Настройка рассылки'
         verbose_name_plural = 'Настройки рассылки'
+
+        ordering = ('datestart', 'message',)
+
+
+        #####################################################
+        # todo Задаем кастомные права доступа
+        permissions = [
+            (
+                # имя ограничения (то что мы указываем в контроллере и как будет выглядеть в БД)
+                'set_status',
+                # описание ограничения (то как это выглядит в админке)
+                'Can disable mailing'
+            ),
+        ]
+        #####################################################
+
 
 class MailingClinet(models.Model):
     mailing = models.ForeignKey('MailingSetting', on_delete=models.CASCADE, verbose_name='рассылка', **NOT_NULLABLE)

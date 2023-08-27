@@ -1,16 +1,17 @@
 import random
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth import authenticate, login
 from django.core.mail import send_mail
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.views import LoginView as BaseLoginView
 from django.contrib.auth.views import LogoutView as BaseLogoutView
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, UpdateView, TemplateView, FormView
+from django.views.generic import CreateView, UpdateView, TemplateView, FormView, ListView, DeleteView
 
 from django.contrib import messages
 
@@ -24,12 +25,14 @@ from users.models import User
 def logout_redirect_url_app(section):
     if not section:
         section = DEFAULT_SECTION
-    return reverse_lazy('mailing:client_list' if section == 'mailing' else 'catalog:home')
+    return reverse_lazy('mailing:home_mailing' if section == 'mailing' else 'catalog:home')
+    # return reverse_lazy('mailing:client_list' if section == 'mailing' else 'catalog:home')
 
 def login_redirect_url_app(section):
     if not section:
         section = DEFAULT_SECTION
-    return reverse_lazy('mailing:client_list' if section == 'mailing' else 'catalog:home')
+    return reverse_lazy('mailing:home_mailing' if section == 'mailing' else 'catalog:home')
+    # return reverse_lazy('mailing:client_list' if section == 'mailing' else 'catalog:home')
 
 def login_url_app(section):
     if not section:
@@ -42,8 +45,10 @@ def redirect_for_user(section):
     # LOGIN_REDIRECT_URL = '/'  # reverse_lazy('catalog:catalog')
     # LOGIN_URL = 'users:login'  # Сюда перенаправляется неавторизованный пользователь
 
-    LOGOUT_REDIRECT_URL = reverse('mailing:client_list') if section == 'mailing' else reverse('catalog:home')
-    LOGIN_REDIRECT_URL = reverse('mailing:client_list') if section == 'mailing' else reverse('catalog:home')  # reverse_lazy('catalog:catalog')
+    LOGOUT_REDIRECT_URL = reverse('mailing:home_mailing') if section == 'mailing' else reverse('catalog:home')
+    # LOGOUT_REDIRECT_URL = reverse('mailing:client_list') if section == 'mailing' else reverse('catalog:home')
+    LOGIN_REDIRECT_URL = reverse('mailing:home_mailing') if section == 'mailing' else reverse('catalog:home')  # reverse_lazy('catalog:catalog')
+    # LOGIN_REDIRECT_URL = reverse('mailing:client_list') if section == 'mailing' else reverse('catalog:home')  # reverse_lazy('catalog:catalog')
     LOGIN_URL = reverse('users:login', args=[section])  # Сюда перенаправляется неавторизованный пользователь
 
 
@@ -291,4 +296,110 @@ def VerificationView(request, pk, key, section):
 
 
     return render(request, 'users/verification.html', context)
+
+
+class UserListView(PermissionRequiredMixin, ListView):
+    model = User
+
+    extra_context = {
+        # 'section': 'mailing',
+        'title': 'Список пользователей',
+    }
+    permission_required = 'users.view_user'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        if not self.kwargs.get('section'):
+            context['section'] = DEFAULT_SECTION
+        else:
+            context['section'] = self.kwargs.get('section')
+        return context
+
+
+class UserDeleteView(PermissionRequiredMixin, DeleteView):
+    model = User
+    permission_required = 'users.delete_user'
+    template_name = 'users/user_confirm_delete.html'
+
+
+    def get_success_url(self, *args, **kwargs):
+        section = self.get_context_data().get('section')
+        return reverse('users:user_list', kwargs={'section': section})
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        if not self.kwargs.get('section'):
+            context['section'] = DEFAULT_SECTION
+        else:
+            context['section'] = self.kwargs.get('section')
+        return context
+
+# @permission_required("users.change_is_active")
+# def ChangeUserActiveView(request, pk, section):
+#     # Верификация
+#     user = User.objects.filter(pk=pk)[0]
+#     if user:
+#         # Пользователь существует
+#         user.is_active = not user.is_active
+#         user.save(update_fields=['is_active'])
+#     return redirect(reverse("users:user_list", args=section))
+
+
+class ChangeUserActiveView(PermissionRequiredMixin, UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = 'users/user_confirm_change_active.html'
+    permission_required = 'users.change_is_active'
+
+    def get_success_url(self):
+        section = self.get_context_data().get('section')
+        return reverse_lazy('users:user_list', kwargs={'section': section})
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        if not self.kwargs.get('section'):
+            context['section'] = DEFAULT_SECTION
+        else:
+            context['section'] = self.kwargs.get('section')
+        return context
+
+
+    # def form_valid(self, form, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
+        if request.method != 'POST':
+            return HttpResponseRedirect(self.get_success_url())
+        # user = UserForm.save(commit=False)
+        user =User.objects.get(pk=self.kwargs.get('pk'))
+        print("user", user)
+        print("user.is_active (до)", user.is_active)
+        user.is_active = not user.is_active  # Инвертируем значение поля is_active
+        print("user.is_active (после)", user.is_active)
+        user.save()
+        return HttpResponseRedirect(reverse("users:user_list", kwargs={'section': self.kwargs.get('section')}))
+
+
+class ChangeUserStaffView(PermissionRequiredMixin, UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = 'users/user_confirm_change_staff.html'
+    permission_required = 'users.change_is_active'
+
+    def get_success_url(self):
+        section = self.get_context_data().get('section')
+        return reverse_lazy('users:user_list', kwargs={'section': section})
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        if not self.kwargs.get('section'):
+            context['section'] = DEFAULT_SECTION
+        else:
+            context['section'] = self.kwargs.get('section')
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method != 'POST':
+            return HttpResponseRedirect(self.get_success_url())
+        user =User.objects.get(pk=self.kwargs.get('pk'))
+        user.is_staff = not user.is_staff  # Инвертируем значение поля is_staff
+        user.save()
+        return HttpResponseRedirect(reverse("users:user_list", kwargs={'section': self.kwargs.get('section')}))
+
 

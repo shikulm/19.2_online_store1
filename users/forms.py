@@ -15,12 +15,14 @@ class UserForm(StyleFormMixtin, UserChangeForm):
     class Meta:
         model = User
         # fields ="__all__"
-        fields =('email', 'password', 'first_name', 'last_name', 'phone','country', 'avatar')
+        fields =('email', 'password', 'first_name', 'last_name', 'phone','country', 'avatar', 'is_active', 'is_staff')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields['password'].widget = forms.HiddenInput()
+        self.fields['is_active'].widget = forms.HiddenInput()
+        self.fields['is_staff'].widget = forms.HiddenInput()
 
 
 class RestorePasswordForm(forms.Form):

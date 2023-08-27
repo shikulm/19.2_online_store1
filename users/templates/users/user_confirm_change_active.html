@@ -8,9 +8,10 @@
                     <div class="card-body">
                         <form method="post">
                             {% csrf_token %}
-                            <p>Хотите удалить запись по письму "{{ object.subject }}"?</p>
+                            <p>Хотите {% if object.is_active %} деактивировать {%  else %} активровать {% endif %}
+                                пользователя "{{ object.email }}"?</p>
                             <button type="submit" class="btn btn-danger">Подтвердить</button>
-                            <a href="{% url 'mailing:message_list' %}" class="btn btn-warning">Отменить</a>
+                            <a href="{% url 'users:user_list' section %}" class="btn btn-warning">Отменить</a>
                         </form>
                     </div>
                 </div>

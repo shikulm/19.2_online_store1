@@ -4,9 +4,9 @@ from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView
 
-from catalog.models import Product, Category, Contacts, Version
+from catalog.models import Product, Contacts, Version
 from catalog.forms import ProductForm, VersionForm
-from catalog.services import get_cache_category
+from services.cache_services import get_cache_category
 
 
 class HomeTemplateView(TemplateView):

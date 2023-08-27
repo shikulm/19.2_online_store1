@@ -8,9 +8,10 @@
                     <div class="card-body">
                         <form method="post">
                             {% csrf_token %}
-                            <p>Хотите удалить запись по письму "{{ object.subject }}"?</p>
+                            <p>Хотите {% if object.status == object.STATUS_ACTIVATED %} отключить {%  else %} включить {% endif %}
+                                настройки рассылки "{{ object.message }} ({{ object.datestart }} - {{ object.dateend }})"?</p>
                             <button type="submit" class="btn btn-danger">Подтвердить</button>
-                            <a href="{% url 'mailing:message_list' %}" class="btn btn-warning">Отменить</a>
+                            <a href="{% url 'mailing:setting_list' %}" class="btn btn-warning">Отменить</a>
                         </form>
                     </div>
                 </div>

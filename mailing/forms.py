@@ -7,7 +7,7 @@ from mailing.models import Client, Message, MailingSetting, MailingLog
 class ClientForm(StyleFormMixtin, forms.ModelForm):
     class Meta:
         model = Client
-        fields = ('email', 'first_name', 'last_name', 'comment')
+        fields = ('email', 'first_name', 'last_name', 'comment',)
 
 
 class MessageForm(StyleFormMixtin, forms.ModelForm):

@@ -1,0 +1,101 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% load static %}
+
+
+{% block content %}
+    {#    <script>#}
+    {#        function toggleCheckbox(event) {#}
+    {#            const pk = event.target.getAttribute('data-pk');#}
+    {#const url = "{% url 'users:change_active' section=section pk='-' %}".replace('-', pk);#}
+    {#            const url = "{% url 'users:change_active' section='mailing' pk=object.pk %}";#}
+    {#            window.location.href = url;#}
+    {#        }#}
+    {##}
+    {#        const checkboxes = document.querySelectorAll("input[name='is_active']");#}
+    {#        checkboxes.forEach(function (checkbox) {#}
+    {#            checkbox.addEventListener('change', toggleCheckbox);#}
+    {#        });#}
+    {#    </script>#}
+
+    <div class="container-fluid">
+        <h2>Список пользователей</h2>
+
+        <table class="table table-hover">
+            {% if object_list %}
+                <thead>
+                <tr text-center match-height>
+                    <th>Почта</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Активен</th>
+                    <th>Сотрудник</th>
+                    {#                    <th></th>#}
+                </tr>
+                </thead>
+            {% endif %}
+            {% for object in object_list %}
+                <tr text-center match-height>
+                    <td text-center match-height>
+                        {{ object.email }}
+
+                        {# {% if perms.mailing.change_mailingsetting %}#}
+                        {#                        {% if not is_manager_mailing %}#}
+                        {#                            <a href="{% url 'mailing:setting_edit' object.pk %}"#}
+                        {#                               title="Изменить">{{ object.datestart }}</a>#}
+                        {#                        {% else %}#}
+                        {#                            {{ object.datestart }}#}
+                        {#                        {% endif %}#}
+                    </td>
+                    <td>{{ object.first_name }}</td>
+                    <td>{{ object.last_name }}</td>
+                    {#                    <td>{{ object.is_active }}</td>#}
+                    {#                    <td><input class="form-check-input" type="checkbox" id="is_active" {% if object.is_active %} checked {%endif%}> </td>#}
+                    <td>
+                        {#                        <a href="{% url 'users:change_active' section object.pk %}"> #}
+                        {#                        <input class="form-check-input" type="checkbox" name="is_active" id="{{ object.pk }}"#}
+                        {#                                {% if object.is_active %}#}
+                        {#                               checked {% endif %} data-pk="{{ object.pk }}" />#}
+                        {#                    </a>#}
+
+                        <input class="form-check-input" type="checkbox" name="is_active" id="{{ object.pk }}"
+                                {% if object.is_active %} checked {% endif %} disabled/>
+                        <a href="{% url 'users:change_active' section object.pk %}">
+                            {% if  object.is_active %}
+                                Деактивировать
+                            {% else %}
+                                Активировать
+                            {% endif %}
+                        </a>
+
+                    </td>
+                    {#                    <td>{{ object.is_staff }}</td>#}
+                    <td>
+                        <input class="form-check-input" type="checkbox" name="is_staff" id="{{ object.pk }}"
+                                {% if object.is_staff %} checked {% endif %} disabled/>
+                        <a href="{% url 'users:change_staff' section object.pk %}">
+                            {% if  object.is_staff %}
+                                Уволить
+                            {% else %}
+                                Нанять
+                            {% endif %}
+                        </a>
+                        {#                        <a href="#"> <input class="form-check-input" type="checkbox" id="is_staff"#}
+                        {#                            {% if object.is_staff %} checked {% endif %} /> </a>#}
+                    </td>
+
+                    <td text-center match-height>
+                        <div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Edit">
+                            {#                             {% if perms.mailing.delete_mailingsetting %}#}
+                            {% if perms.users.delete_user %}
+                                <a type="button" class="btn btn-danger btn-warning text-center match-height"
+                                   href="{% url 'users:user_delete' section object.pk %}" title="Удалить"> X</a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+
+{% endblock %}
