@@ -39,25 +39,10 @@
                     <td text-center match-height>
                         {{ object.email }}
 
-                        {# {% if perms.mailing.change_mailingsetting %}#}
-                        {#                        {% if not is_manager_mailing %}#}
-                        {#                            <a href="{% url 'mailing:setting_edit' object.pk %}"#}
-                        {#                               title="Изменить">{{ object.datestart }}</a>#}
-                        {#                        {% else %}#}
-                        {#                            {{ object.datestart }}#}
-                        {#                        {% endif %}#}
                     </td>
                     <td>{{ object.first_name }}</td>
                     <td>{{ object.last_name }}</td>
-                    {#                    <td>{{ object.is_active }}</td>#}
-                    {#                    <td><input class="form-check-input" type="checkbox" id="is_active" {% if object.is_active %} checked {%endif%}> </td>#}
                     <td>
-                        {#                        <a href="{% url 'users:change_active' section object.pk %}"> #}
-                        {#                        <input class="form-check-input" type="checkbox" name="is_active" id="{{ object.pk }}"#}
-                        {#                                {% if object.is_active %}#}
-                        {#                               checked {% endif %} data-pk="{{ object.pk }}" />#}
-                        {#                    </a>#}
-
                         <input class="form-check-input" type="checkbox" name="is_active" id="{{ object.pk }}"
                                 {% if object.is_active %} checked {% endif %} disabled/>
                         <a href="{% url 'users:change_active' section object.pk %}">
@@ -69,7 +54,6 @@
                         </a>
 
                     </td>
-                    {#                    <td>{{ object.is_staff }}</td>#}
                     <td>
                         <input class="form-check-input" type="checkbox" name="is_staff" id="{{ object.pk }}"
                                 {% if object.is_staff %} checked {% endif %} disabled/>
@@ -80,8 +64,6 @@
                                 Нанять
                             {% endif %}
                         </a>
-                        {#                        <a href="#"> <input class="form-check-input" type="checkbox" id="is_staff"#}
-                        {#                            {% if object.is_staff %} checked {% endif %} /> </a>#}
                     </td>
 
                     <td text-center match-height>

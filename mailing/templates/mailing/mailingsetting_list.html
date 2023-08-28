@@ -30,11 +30,6 @@
             {% for object in object_list %}
                 <tr text-center match-height>
 
-                    {#                    {% if perms.mailing.change_mailingsetting %}#}
-                    {#                        <a href="{% url 'mailing:setting_edit' object.pk %}" title="Изменить">#}
-                    {#                    {% endif %}#}
-
-
                     <td text-center match-height>
                         {# {% if perms.mailing.change_mailingsetting %}#}
                         {% if not is_manager_mailing %}
@@ -48,9 +43,6 @@
                     <td>{{ object.get_period_display }}</td>
                     <td>{{ object.get_status_display }}</td>
                     <td>{{ object.message }}</td>
-                    {#                    {% if perms.mailing.change_mailingsetting %}#}
-                    {#                        </a>#}
-                    {#                    {% endif %}#}
 
                     <td text-center match-height>
 
@@ -66,11 +58,6 @@
 
                     {% if perms.mailing.set_status %}
                         <td text-center match-height>
-                            {#                            {% if object.status == object.STATUS_ACTIVATED %}#}
-                            {#                                <a href="{% url 'mailing:change_status_setting' object.pk %}"> Отключить </a>>#}
-                            {#                            {% else %}#}
-                            {#                                <a href="{% url 'mailing:change_status_setting' object.pk %}"> Подключить </a>>#}
-                            {#                            {% endif %}#}
 
 
                             <a href="{% url 'mailing:change_status_setting' object.pk %}">
@@ -85,14 +72,6 @@
 
                     <td text-center match-height>
                         <div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Edit">
-                            {#                            {% if perms.mailing.change_mailingsetting %}#}
-                            {#                                <a type="button" class="btn btn-block btn-outline-primary"#}
-                            {#                                   href="{% url 'mailing:setting_edit' object.pk %}">Изменить</a>#}
-                            {#                            {% endif %}#}
-                            {#                            {% if perms.mailing.change_mailingclient %}#}
-                            {#                                <a type="button" class="btn btn-block btn-outline-primary"#}
-                            {#                                   href="{% url 'mailing:setting_edit' object.pk %}">Список рассылки</a>#}
-                            {#                            {% endif %}#}
 
                             {# {% if perms.mailing.delete_mailingsetting %}#}
                             {% if not is_manager_mailing %}
@@ -105,37 +84,5 @@
             {% endfor %}
         </table>
 
-        {#        <div class="row text-center match-height gy-3">#}
-        {#            {% for object in object_list %}#}
-        {#                <div class="col-3">#}
-        {#                    <div class="card" style="height: 225px">#}
-        {#                        <div class="card-header">#}
-        {#                            <h5 class="my-0 font-weight-normal text-truncate"#}
-        {#                                title="{{ object.subject }}">#}
-        {#                                {{ object.subject }} </h5>#}
-        {#                        </div>#}
-        {#                        <div class="card-body">#}
-        {#                            <div class="row text-center">#}
-        {#                                <p title="{{ object.body }}">{{ object.body|get_to_len:100 }} </p>#}
-        {#                            </div>#}
-        {#                        </div>#}
-        {#                        <div class="card-footer">#}
-        {#                            <div class="row text-center match-height">#}
-        {#                                <div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Edit">#}
-        {#                                    {% if perms.mailing.change_message %}#}
-        {#                                        <a type="button" class="btn btn-block btn-outline-primary"#}
-        {#                                           href="{% url 'mailing:message_edit' object.pk %}">Изменить</a>#}
-        {#                                    {% endif %}#}
-        {#                                    {% if perms.mailing.delete_message %}#}
-        {#                                        <a type="button" class="btn btn-block btn-outline-primary"#}
-        {#                                           href="{% url 'mailing:message_delete' object.pk %}">Удалить</a>#}
-        {#                                    {% endif %}#}
-        {#                                </div>#}
-        {#                            </div>#}
-        {#                        </div>#}
-        {##}
-        {#                    </div>#}
-        {#                </div>#}
-        {#            {% endfor %}#}
-        {#        </div>#}
+
 {% endblock %}

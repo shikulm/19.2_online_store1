@@ -33,5 +33,4 @@ class RestorePasswordForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields['UserEmail'].widget.attrs['class'] = 'form-control'
         self.fields['UserEmail'].widget.attrs['placeholder'] = 'name@email.com'
-        # self.UserEmail.widget['class'] = 'form-control'
-        # self.UserEmail.widget['placeholder'] = 'name@email.com'
+

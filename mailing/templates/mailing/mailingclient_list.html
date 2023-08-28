@@ -33,7 +33,7 @@
                 <hr>
 
                 <h5 class="my-0 font-weight-normal text-truncate mb-3">
-                Рассылка: <br></h5>
+                    Рассылка: <br></h5>
                 <h5 class="my-0 font-weight-normal text-truncate mb-3">
                     Дата начала: {{ mailingsetting.datestart }} <br>
                     Дата завершения: {{ mailingsetting.datestart }} <br>
@@ -42,19 +42,12 @@
                 </h5>
                 <hr>
             </div>
-            {#        <div class="row">#}
-            {#            <form method="post" action="{% url 'mailing:setting_list' %}">#}
-            {#            <form method="POST" action="{% url 'mailing:mailing_client_save' pk_setting %}">#}
-            {#            <form method="POST" action="{% url 'mailing:mailing_client' pk_setting%}>#}
-            {#            <form method="POST" action="{% url 'mailing:mailing_client' pk_setting%}>#}
-            {#            <form method="POST" action="{% url 'mailing:mailing_client_save'%}>#}
 
             <div class="col-1"></div>
             <div class="col-6">
                 <form method="POST">
                     {% csrf_token %}
-                    {#                <input type='hidden' id='pk_setting' value={{ pk_setting }} />#}
-                    <input type='hidden' id='pk_setting' name="pk_setting" value='{{ pk_setting }}' />
+                    <input type='hidden' id='pk_setting' name="pk_setting" value='{{ pk_setting }}'/>
                     <label for="selected-clients" class="label col-form-label-lg">Выбранные клиенты</label>
                     <select id="selected-clients" multiple name="selected_clients" class="form-select" size="7"
                             aria-label="Выбранные клиенты">
@@ -65,8 +58,6 @@
                     </select>
                     <br>
 
-                    {#                <a class="btn btn-primary" id="move-right" href="{% url 'mailing:mailing_client_add' pk_setting %}">Добавить</a>#}
-                    {#                <button class="btn btn-primary" id="move-right" onclick="{% url 'mailing:mailing_client_save'%}">Добавить</button>#}
                     <button class="btn btn-primary" id="move-right">Добавить</button>
                     <button class="btn btn-dark" id="move-left">Удалить</button>
                     <br><br>

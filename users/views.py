@@ -63,22 +63,19 @@ class LoginView(BaseLoginView):
             context['section'] = DEFAULT_SECTION
         else:
             context['section'] = self.kwargs.get('section')
-        # redirect_for_user(context['section'])
         return context
 
     def get_success_url(self):
         section = self.get_context_data().get('section')
-        # rev = reverse('mailing:client_list') if section == 'mailing' else reverse('catalog:home')
         rev = login_redirect_url_app(section)
         return rev
 
 
 class LogoutView(LoginRequiredMixin, BaseLogoutView):
-# class LogoutView(BaseLogoutView):
-    # login_url = reverse('users:login', kwargs={'section': sel})
+
     redirect_field_name = 'redirect_to'
     # Выход
-    # pass
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         if not self.kwargs.get('section'):
@@ -109,29 +106,6 @@ class LogoutView(LoginRequiredMixin, BaseLogoutView):
         rev = logout_redirect_url_app(section)
         return rev
 
-    # def get_logout_redirect_url(self):
-    #     if not self.kwargs.get('section'):
-    #         section = DEFAULT_SECTION
-    #     else:
-    #         section = self.kwargs.get('section')
-    #     return logout_redirect_url_app(section)
-        # return reverse_lazy('mailing:client_list' if section == 'mailing' else 'catalog:home')
-
-    # def dispatch(self, request, *args, **kwargs):
-    #     section = self.get_context_data().get('section')
-    #     # self.next_page = request.build_absolute_uri(reverse('users:login', kwargs={'section': section}))
-    #     self.next_page = request.build_absolute_uri(reverse('users:login', args=(section,)))
-    #     return super().dispatch(request, *args, **kwargs)
-
-        # section = self.get_context_data().get('section')
-        # # print(section)
-        # self.next_page = reverse('users:login', kwargs={'section': section})
-        # return super().dispatch(request, *args, **kwargs)
-
-    # def get_success_url(self):
-    #     section = self.get_context_data().get('section')
-    #     # print(section)
-    #     return redirect(reverse('users:login', kwargs={'section': section}))
 
 class RegisterView(CreateView):
     # Регистрация
@@ -153,8 +127,6 @@ class RegisterView(CreateView):
         self.object.key = key_val
         self.object.save()
         section = self.get_context_data().get('section')
-        # print(self.request.POST)
-        # link_url = self.request.build_absolute_uri(reverse_lazy('users:verification', kwargs = {'pk' : self.object.pk, 'key':key_val}))
         link_url = self.request.build_absolute_uri(reverse_lazy('users:verification', kwargs = {'pk' : self.object.pk, 'key':key_val, 'section':section}))
         send_mail(
             subject='Регистрация на сайте для покупки шоколада',
@@ -192,25 +164,13 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        # print('context = ', context)
-        # print("до kwargs.get('section') = ", self.kwargs.get('section'))
-        # print("до args = ", self.args)
         if not self.kwargs.get('section'):
             context['section'] = DEFAULT_SECTION
         else:
             context['section'] = self.kwargs.get('section')
-        # print("после context['section'] = ", context['section'])
-        # redirect_for_user(context['section'])
         return context
 
 
-
-# def RestorePasswordView(request):
-#     """Восстановление пароля"""
-#     if request.method == "POST":
-#         email = request.POST.get('UserEmail')
-#
-#         # Генерация пароля
 
 
     # return render(request, 'users/login.html', context)
@@ -274,8 +234,6 @@ def VerificationView(request, pk, key, section):
     if user:
         # Успешная верифкация
         success_verify = True
-        # user = user_verify[0]
-        # res_verify_msg = 'Поздравляем! \n Ваша почта подтверждена!'
 
         user.is_active = success_verify
         user.save(update_fields=['is_active'])
@@ -285,13 +243,10 @@ def VerificationView(request, pk, key, section):
     else:
         # Ошибка верифкация
         success_verify = False
-        # res_verify_msg = 'Ошибка верификации. \n Попробуйте еще раз'
         messages.add_message(request, messages.ERROR, f'Ошибка верификации. \n Попробуйте еще раз')
     context = {
         'success_verify': success_verify,
-        # 'res_verify_msg': res_verify_msg,
         'section': section
-        # 'section': DEFAULT_SECTION
     }
 
 
@@ -333,16 +288,6 @@ class UserDeleteView(PermissionRequiredMixin, DeleteView):
         else:
             context['section'] = self.kwargs.get('section')
         return context
-
-# @permission_required("users.change_is_active")
-# def ChangeUserActiveView(request, pk, section):
-#     # Верификация
-#     user = User.objects.filter(pk=pk)[0]
-#     if user:
-#         # Пользователь существует
-#         user.is_active = not user.is_active
-#         user.save(update_fields=['is_active'])
-#     return redirect(reverse("users:user_list", args=section))
 
 
 class ChangeUserActiveView(PermissionRequiredMixin, UpdateView):
@@ -401,5 +346,6 @@ class ChangeUserStaffView(PermissionRequiredMixin, UpdateView):
         user.is_staff = not user.is_staff  # Инвертируем значение поля is_staff
         user.save()
         return HttpResponseRedirect(reverse("users:user_list", kwargs={'section': self.kwargs.get('section')}))
+
 
 

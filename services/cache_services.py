@@ -35,6 +35,6 @@ def get_cache_blog():
             cache.set(key, blog_list)
     else:
         # Если кеш не был подключен, то просто обращаемся к БД
-        blog_list = Category.Blog.all()
+        blog_list = Blog.objects.all()
     # Возвращаем результат
     return blog_list

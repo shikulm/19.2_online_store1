@@ -14,14 +14,7 @@
 
 
     <div class="container-fluid">
-        {#      <div class="row text-center match-height gy-5">#}
-        {#          {% include 'catalog/includes/inc_category_menu.html' %}#}
-        {#      </div>#}
-        {#        <h2 text-center gy-3> {% if category %} {{ category }} {% endif %} </h2>#}
-
-
         {#            {% if perms.client.add_product %}#}
-
         {% is_manager_mailing_tag as is_manager_mailing %}
 
         {% if not is_manager_mailing %}

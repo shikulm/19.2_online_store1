@@ -1,0 +1,54 @@
+{% extends 'catalog/base.html' %}
+{% load my_tags %}
+{% load static %}
+
+
+{% block content %}
+    <div class="container-fluid">
+        <h1>Журнал рассылки</h1>
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'mailing:mailinglog' %}">Все</a>
+                        </li>
+                        {% for status in statuses %}
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page"
+                                   href="{% url 'mailing:mailinglog_status' status.0 %}">{{  status.1 }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <table class="table table-hover">
+            {% if object_list %}
+                <thead>
+                <tr text-center match-height>
+                    <th>Дата и время последней попытки</th>
+                    <th>Клиент</th>
+                    <th>Сообщение</th>
+                    <th>Рассылка</th>
+                    <th>Статус</th>
+                    <th>Ответ почтового сервера</th>
+                </tr>
+                </thead>
+            {% endif %}
+            {% for object in object_list %}
+                <tr text-center match-height>
+                    <td>{{ object.datetime_mailing }}</td>
+                    <td>{{ object.client }}</td>
+                    <td>{{ object.setting.message }}</td>
+                    <td>{{ object.setting.datestart }}-{{ object.setting.dateend }}
+                        ({{ object.setting.get_period_display }})
+                    </td>
+                    <td>{{ object.status }}</td>
+                    <td>{{ object.answer }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+{% endblock %}

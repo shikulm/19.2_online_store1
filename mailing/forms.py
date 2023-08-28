@@ -27,5 +27,3 @@ class MailingSettingForm(StyleFormMixtin, forms.ModelForm):
         # self.fields['datestart'].widget.attrs['placeholder'] = 'YYYY-MM-DD'
 
 
-# class MailiingClient(forms):
-#     selected_clients =

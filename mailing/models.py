@@ -111,4 +111,5 @@ class MailingLog(models.Model):
     class Meta:
         verbose_name = 'Запись журнала рассылки'
         verbose_name_plural = 'Журнал рассылок'
+        ordering = ['-datetime_mailing',]
 

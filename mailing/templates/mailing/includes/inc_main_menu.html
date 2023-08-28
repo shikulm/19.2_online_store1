@@ -7,27 +7,28 @@
         <a class="nav-link {% if title == 'Рассылки' %} active {% endif %} fa fa-home float-start text-white bg-blue"
            id="v-pills-home-tab" data-toggle="pill" href="{% url 'mailing:home_mailing' %}" role="tab"
            aria-controls="v-pills-home" aria-selected="true">
-            Главная (расссылки)
+            Главная (рассылки)
         </a>
 
-        <a class="nav-link {% if title == 'Клиенты' %} active {% endif %} fa fa-home float-start text-white bg-blue"
+        <a class="nav-link {% if title == 'Клиенты' %} active {% endif %} fa fa-address-card-o float-start text-white bg-blue"
            id="v-pills-home-tab" data-toggle="pill" href="{% url 'mailing:client_list' %}" role="tab"
            aria-controls="v-pills-home" aria-selected="true">
             Клиенты
         </a>
-        <a class="nav-link {% if title == 'Сообщения' %} active {% endif %} fa fa-star float-start text-white bg-blue"
+        <a class="nav-link {% if title == 'Сообщения' %} active {% endif %} fa fa-envelope-o float-start text-white bg-blue"
            id="v-pills-home-tab" data-toggle="pill" href="{% url 'mailing:message_list' %}" role="tab"
            aria-controls="v-pills-home" aria-selected="true">
             Сообщения
         </a>
 
-        <a class="nav-link {% if title == 'Настройки' %} active {% endif %} fa fa-shopping-cart float-start text-white bg-blue"
+        <a class="nav-link {% if title == 'Настройки' %} active {% endif %} fa fa-cog float-start text-white bg-blue"
            id="v-pills-home-tab" data-toggle="pill" href="{% url 'mailing:setting_list' %}" role="tab"
            aria-controls="v-pills-home" aria-selected="true">
             Настройка рассылки
         </a>
-        <a class="nav-link {% if title == 'Журнал рассылки' %} active {% endif %} fa fa-shopping-cart float-start text-white bg-blue"
-           id="v-pills-home-tab" data-toggle="pill" href="#" role="tab" aria-controls="v-pills-home"
+        <a class="nav-link {% if title == 'Журнал рассылки' %} active {% endif %} fa fa-list-alt float-start text-white bg-blue"
+           id="v-pills-home-tab" data-toggle="pill" href="{% url 'mailing:mailinglog' %}" role="tab"
+           aria-controls="v-pills-home"
            aria-selected="true">
             Журнал рассылки
         </a>

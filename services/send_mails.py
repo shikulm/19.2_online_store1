@@ -27,23 +27,21 @@ def send_email(setting: MailingSetting, client: Client):
                               answer=res_txt)
 
 
-def set_status_settings():
-    pass
+# def set_status_settings():
+#     pass
 
 def send_mails():
     '''Отправляет письмо всем пользоватлеям, подключенным к актуальным рассылкам'''
     # print('Сработал crontab')
     # Изменяем стаусы рассылок с учетом текущего периода
-    set_status_settings()
+    # set_status_settings()
     # Получаем список активных рассылок
     dt_now = datetime.datetime.now(datetime.timezone.utc)
     # Выбираем настройки, попадающие в период рассылки
     mail_settings = MailingSetting.objects.filter(status=MailingSetting.STATUS_ACTIVATED, datestart__lte=dt_now, dateend__gte=dt_now)
-    # mail_settings = MailingSetting.objects.filter(status=MailingSetting.STATUS_ACTIVATED)
     if mail_settings.exists():
         for ms in mail_settings:
             print('---')
-            # print(ms)
             print('mail_settings: ', ms.message, ms)
             # Определяем сколько дней должно пройти после последний отправки писем, чтобы можно было опять отправлять письма
             days_min = 1 if ms.period == ms.PERIOD_DAILY else 7 if ms.period == ms.PERIOD_WEEKLY else 30
@@ -61,7 +59,6 @@ def send_mails():
                     # Если раньще рассылок не было клиенту, то заносим в дату последней рассылки ту дату, с которой рассылка будет выполняться
                     date_last = dt_now-datetime.timedelta(days=(days_min+1))
                 print(f'Дата предудщей рассылки: {date_last}. Прошло {dt_now-date_last} из {days_min} дней')
-                # if not last_log or date_last + datetime.timedelta(days=days_min) >= dt_now:
                 if (dt_now-date_last) >= datetime.timedelta(days=days_min):
                     print('Отправляем')
                     send_email(ms, c)
